@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <!-- Subtle drop shadow -->
+  <path d="M9 2v10.5h1.2V6.5a1.5 1.5 0 0 1 3 0V11h1V8.5a1.5 1.5 0 0 1 3 0V12h1V10a1.5 1.5 0 0 1 3 0v5.5a7 7 0 0 1-7 7H12.5a6.5 6.5 0 0 1-5.5-3L3.5 14 5 12.5 9 15V2z" fill="black" fill-opacity="0.3" transform="translate(1, 1)" />
+  <!-- Classic Pointer Hand in Portfolio Brand Orange with Crisp White Outline -->
+  <path d="M9 2v10.5h1.2V6.5a1.5 1.5 0 0 1 3 0V11h1V8.5a1.5 1.5 0 0 1 3 0V12h1V10a1.5 1.5 0 0 1 3 0v5.5a7 7 0 0 1-7 7H12.5a6.5 6.5 0 0 1-5.5-3L3.5 14 5 12.5 9 15V2z" fill="#ff570a" stroke="#ffffff" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" />
+</svg>
