@@ -7,7 +7,7 @@ export function Footer() {
     <footer className="px-3 pb-3 sm:px-4 sm:pb-4">
       <div className="overflow-hidden rounded-[2rem] bg-hero px-5 py-12 sm:px-8 sm:py-16 text-panel-foreground">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-12">
-          <div className="min-w-0 lg:col-span-5">
+          <div className="min-w-0 lg:col-span-4">
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-panel-muted">Get in touch</p>
             <a
               href={`mailto:${personal.email}`}
@@ -22,12 +22,12 @@ export function Footer() {
             <p className="mt-1 text-xs sm:text-sm text-panel-muted">{personal.title}</p>
           </div>
 
-          <nav aria-label="Footer" className="lg:col-span-3">
+          <nav aria-label="Footer" className="lg:col-span-2">
             <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em]">Quick links</p>
-            <ul className="grid grid-cols-2 gap-2 text-sm text-panel-muted">
+            <ul className="space-y-2 text-sm text-panel-muted">
               {navLinks.map((l) => (
                 <li key={l.id}>
-                  <a href={`#${l.id}`} className="hover:text-highlight">
+                  <a href={`#${l.id}`} className="hover:text-highlight transition-colors">
                     {l.label}
                   </a>
                 </li>
@@ -46,32 +46,83 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-2">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em]">Agency &amp; Contact</p>
-            <div className="flex items-center gap-2.5">
-              <img
-                src={devlogicLogo}
-                alt="DevLogic Labs logo"
-                className="h-9 w-9 shrink-0 rounded-lg border border-panel-border bg-card p-0.5 object-cover"
-              />
-              <div className="min-w-0">
-                <p className="text-sm font-bold text-highlight">{agency.name}</p>
-                <p className="text-[0.68rem] text-panel-muted italic">{agency.tagline}</p>
+          <div className="lg:col-span-4">
+            <p className="mb-3.5 text-xs font-bold uppercase tracking-[0.3em] text-highlight">
+              Agency &amp; Contact
+            </p>
+
+            {/* DevLogic Labs Interactive Brand Card with Feedback Animation */}
+            <a
+              href={agencyWhatsappLink("Hi DevLogic Labs, I'd like to consult on a custom digital project.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block rounded-2xl border border-panel-border bg-panel-card/85 p-3.5 backdrop-blur-sm transition-all duration-300 hover:border-highlight hover:bg-panel-card hover:shadow-glow hover:-translate-y-1 cursor-pointer"
+            >
+              <div className="flex items-center gap-3">
+                <img
+                  src={devlogicLogo}
+                  alt="DevLogic Labs logo"
+                  className="h-11 w-11 shrink-0 rounded-xl border border-panel-border bg-card p-1 object-cover shadow-xs transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-sans text-base font-extrabold normal-case text-highlight tracking-tight group-hover:underline">
+                      DevLogic Labs
+                    </span>
+                    <span className="rounded-full bg-highlight/20 px-2 py-0.5 text-[0.62rem] font-bold uppercase text-highlight">
+                      Agency
+                    </span>
+                  </div>
+                  <p className="mt-0.5 text-xs text-panel-muted italic truncate leading-normal">
+                    {agency.tagline}
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            {/* Generously spaced contact channels for clear identification */}
+            <div className="mt-3.5 space-y-2.5">
+              <div className="flex items-center gap-3 rounded-xl border border-panel-border/60 bg-panel-card/40 px-3.5 py-2.5 transition-colors hover:border-panel-border hover:bg-panel-card/70">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-highlight/15 text-xs">
+                  🏢
+                </span>
+                <div className="min-w-0 flex-1 leading-tight">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-wider text-panel-muted">
+                    DevLogic Labs Business WhatsApp
+                  </p>
+                  <a
+                    href={agencyWhatsappLink()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-sans text-sm font-bold text-panel-foreground hover:text-highlight transition-colors mt-0.5 inline-block"
+                  >
+                    {agency.phoneDisplay}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 rounded-xl border border-panel-border/60 bg-panel-card/40 px-3.5 py-2.5 transition-colors hover:border-panel-border hover:bg-panel-card/70">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-highlight/15 text-xs">
+                  👤
+                </span>
+                <div className="min-w-0 flex-1 leading-tight">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-wider text-panel-muted">
+                    Pasindu Personal Phone / Direct Chat
+                  </p>
+                  <a
+                    href={`tel:+${personal.phoneE164}`}
+                    className="font-sans text-sm font-bold text-panel-foreground hover:text-highlight transition-colors mt-0.5 inline-block"
+                  >
+                    {personal.phoneDisplay}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5 px-1 pt-0.5 text-xs text-panel-muted leading-relaxed">
+                <span>📍</span>
+                <span>{personal.location} • Custom Digital Solutions &amp; Technology Agency</span>
               </div>
             </div>
-            <p className="mt-3 text-xs text-panel-muted">📍 {personal.location}</p>
-            <p className="mt-1 text-xs text-panel-muted">
-              🏢 WhatsApp:{" "}
-              <a href={agencyWhatsappLink()} target="_blank" rel="noopener noreferrer" className="text-panel-foreground hover:text-highlight font-semibold">
-                {agency.phoneDisplay}
-              </a>
-            </p>
-            <p className="mt-1 text-xs text-panel-muted">
-              👤 Personal:{" "}
-              <a href={`tel:+${personal.phoneE164}`} className="text-panel-foreground hover:text-highlight font-semibold">
-                {personal.phoneDisplay}
-              </a>
-            </p>
           </div>
         </div>
 

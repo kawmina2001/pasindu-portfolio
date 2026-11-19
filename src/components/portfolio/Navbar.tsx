@@ -66,8 +66,8 @@ export function Navbar() {
             <span className={cn("truncate text-lg font-extrabold tracking-[-0.04em]", scrolled ? "text-foreground" : "text-panel-foreground")}>
               {personal.firstName}<sup className="ml-0.5 text-[0.55em]">®</sup>
             </span>
-            <span className={cn("hidden text-[0.7rem] font-bold uppercase tracking-wider sm:inline-block", scrolled ? "text-primary" : "text-highlight")}>
-              | {agency.name}
+            <span className={cn("hidden text-[0.74rem] font-black normal-case tracking-tight sm:inline-block transition-transform hover:scale-105", scrolled ? "text-primary" : "text-highlight")}>
+              / DevLogic Labs
             </span>
           </div>
         </a>

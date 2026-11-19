@@ -93,7 +93,7 @@ export function Testimonials() {
       ) : (
         /* Authentic DevLogic Labs Client Trust & Quality Assurance */
         <Reveal from="up">
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-soft sm:p-10">
+          <div className="group relative overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-soft transition-all duration-300 hover:border-primary/50 sm:p-10">
             <div aria-hidden className="grid-lines absolute inset-0 opacity-10 pointer-events-none" />
             <div className="relative z-10">
               <div className="flex flex-wrap items-center justify-between gap-4">
@@ -101,13 +101,13 @@ export function Testimonials() {
                   <img
                     src={devlogicLogo}
                     alt="DevLogic Labs logo"
-                    className="h-12 w-12 shrink-0 rounded-2xl border border-primary/30 bg-card p-1 object-cover shadow-sm"
+                    className="h-12 w-12 shrink-0 rounded-2xl border border-primary/30 bg-card p-1 object-cover shadow-sm transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
                   />
                   <div>
-                    <span className="inline-flex items-center gap-1 text-[0.7rem] font-bold uppercase tracking-wider text-primary">
-                      <Sparkles className="h-3.5 w-3.5" /> Client Trust &amp; Delivery Standards
+                    <span className="inline-flex items-center gap-1.5 text-xs font-bold text-primary normal-case">
+                      <Sparkles className="h-3.5 w-3.5" /> <span className="font-black">DevLogic Labs</span> Quality &amp; Delivery Standards
                     </span>
-                    <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight text-foreground">
+                    <h3 className="font-display text-2xl sm:text-3xl uppercase leading-tight text-foreground mt-0.5">
                       Authentic Engineering • NDA Protected
                     </h3>
                   </div>

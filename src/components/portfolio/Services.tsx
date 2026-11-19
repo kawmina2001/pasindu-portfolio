@@ -10,30 +10,34 @@ export function Services() {
     <section id="services" className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-24 lg:py-28">
       <SectionHeading
         eyebrow="What I do"
-        title="Services by DevLogic Labs"
+        title={
+          <>
+            Services by <span className="normal-case font-black text-primary">DevLogic Labs</span>
+          </>
+        }
         description="All custom digital solutions and client projects are professionally engineered and delivered through my agency, DevLogic Labs."
       />
 
       <Reveal from="up" className="mb-8 sm:mb-10">
-        <div className="relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-card via-card to-accent/40 p-5 shadow-soft sm:p-7">
+        <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-card via-card to-accent/40 p-5 shadow-soft transition-all duration-300 hover:border-primary/60 hover:shadow-glow sm:p-7">
           <div aria-hidden className="grid-lines absolute inset-0 opacity-15 pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
             <div className="flex items-center gap-4 max-w-2xl">
               <img
                 src={devlogicLogo}
                 alt="DevLogic Labs logo"
-                className="h-14 w-14 sm:h-16 sm:w-16 shrink-0 rounded-2xl border border-primary/30 object-cover shadow-sm bg-card p-1"
+                className="h-14 w-14 sm:h-16 sm:w-16 shrink-0 rounded-2xl border border-primary/30 object-cover shadow-sm bg-card p-1 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
               />
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/25 px-2.5 py-0.5 font-display text-xs text-primary uppercase tracking-wider">
-                    <Sparkles className="h-3 w-3" /> {agencyServicesIntro.agencyName}
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 border border-primary/30 px-3 py-1 font-sans text-xs font-extrabold text-primary normal-case transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Sparkles className="h-3.5 w-3.5" /> DevLogic Labs
                   </span>
                   <span className="text-[0.68rem] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     {agencyServicesIntro.category}
                   </span>
                 </div>
-                <h3 className="mt-1.5 font-display text-xl sm:text-2xl uppercase leading-tight text-foreground">
+                <h3 className="mt-2 font-display text-xl sm:text-2xl uppercase leading-tight text-foreground">
                   {agencyServicesIntro.tagline}
                 </h3>
                 <p className="mt-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">
@@ -48,7 +52,7 @@ export function Services() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:scale-105"
               >
-                Consult DevLogic Labs <ArrowUpRight className="h-4 w-4" />
+                Consult <span className="normal-case font-extrabold">DevLogic Labs</span> <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
           </div>

@@ -203,6 +203,21 @@
     letter-spacing: -0.025em;
     text-transform: uppercase;
   }
+
+  .normal-case {
+    text-transform: none !important;
+  }
+}
+
+@utility brand-devlogic {
+  text-transform: none !important;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: pointer;
 }
 
 @utility bg-hero {

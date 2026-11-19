@@ -1,4 +1,5 @@
 import { Briefcase, MapPin } from "lucide-react";
+import devlogicLogo from "@/assets/devlogic-logo.png";
 import { experiences } from "@/data/experience";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./motion";
@@ -37,7 +38,20 @@ export function Experience() {
                     </span>
                   </div>
                   <h3 className="mt-3 text-xl leading-tight text-foreground sm:mt-4 sm:text-3xl">{exp.position}</h3>
-                  <p className="mt-0.5 text-sm font-semibold text-primary sm:mt-1 sm:text-base">{exp.company}</p>
+                  {exp.company === "DevLogic Labs" ? (
+                    <div className="mt-1">
+                      <span className="group inline-flex items-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-2.5 py-1 text-sm font-extrabold normal-case text-primary transition-all duration-300 hover:scale-105 hover:bg-primary/20 hover:border-primary/60 cursor-pointer">
+                        <img
+                          src={devlogicLogo}
+                          alt="DevLogic Labs logo"
+                          className="h-4 w-4 rounded-md object-cover transition-transform duration-300 group-hover:rotate-6 group-hover:scale-115"
+                        />
+                        DevLogic Labs
+                      </span>
+                    </div>
+                  ) : (
+                    <p className="mt-0.5 text-sm font-semibold text-primary sm:mt-1 sm:text-base">{exp.company}</p>
+                  )}
                   {exp.location && (
                     <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground sm:text-sm">
                       <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5" /> {exp.location}

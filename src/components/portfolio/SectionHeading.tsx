@@ -1,9 +1,10 @@
+import { type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./motion";
 
 type Props = {
   eyebrow?: string;
-  title: string;
+  title: ReactNode;
   description?: string;
   tone?: "default" | "panel";
   className?: string;

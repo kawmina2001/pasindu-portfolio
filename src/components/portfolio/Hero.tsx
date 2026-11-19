@@ -135,14 +135,18 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.25, ease }}
           className="absolute left-[4.5%] top-14 z-30 w-[90%] max-w-[18.5rem] sm:top-[20%] sm:w-[28%] lg:top-[22%] lg:w-[24%]"
         >
-          {/* DevLogic Labs Agency Badge */}
+          {/* DevLogic Labs Agency Badge with Interactive Hover Animation */}
           <a
             href="#services"
-            className="mb-2.5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-card/90 px-2.5 py-1 backdrop-blur-md shadow-xs transition-transform hover:scale-105"
+            className="group mb-2.5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-card/90 px-3 py-1 backdrop-blur-md shadow-xs transition-all duration-300 hover:scale-105 hover:border-primary hover:shadow-glow cursor-pointer"
           >
-            <img src={devlogicLogo} alt="DevLogic Labs logo" className="h-4 w-4 rounded-full object-cover" />
-            <span className="font-display text-[0.68rem] uppercase tracking-wider text-primary">
-              {agency.name}
+            <img
+              src={devlogicLogo}
+              alt="DevLogic Labs logo"
+              className="h-4.5 w-4.5 rounded-full object-cover transition-transform duration-300 group-hover:rotate-12 group-hover:scale-115"
+            />
+            <span className="font-sans text-[0.72rem] font-black normal-case tracking-tight text-primary group-hover:underline">
+              DevLogic Labs
             </span>
             <span className="text-[0.6rem] font-bold uppercase tracking-wider text-panel-muted">• Agency</span>
           </a>
@@ -152,7 +156,7 @@ export function Hero() {
             <span className="caret-blink ml-1 inline-block h-[0.9em] w-[2px] translate-y-[0.12em] bg-panel-foreground" aria-hidden />
           </p>
           <p className="text-xs font-bold uppercase leading-[1.6] tracking-wide sm:text-sm">
-            Founder of DevLogic Labs. We build custom web applications, POS/ERP systems &amp; AI-driven solutions.
+            Founder of <span className="normal-case font-black text-panel-foreground">DevLogic Labs</span>. We build custom web applications, POS/ERP systems &amp; AI-driven solutions.
           </p>
           <div className="mt-3.5 flex flex-wrap gap-2 sm:mt-5">
             <Button asChild variant="hero" size="sm" className="px-3 sm:h-9 sm:px-3.5 text-xs">
@@ -161,7 +165,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <WhatsappIcon className="mr-1.5 h-3.5 w-3.5" /> Agency WhatsApp
+                <WhatsappIcon className="mr-1.5 h-3.5 w-3.5" /> <span className="normal-case font-bold">DevLogic Labs</span> WhatsApp
               </a>
             </Button>
             <Button asChild variant="panel" size="sm" className="px-3 sm:h-9 sm:px-3 text-xs">
@@ -197,22 +201,29 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Right Floating Card: DevLogic Labs Agency Spotlight */}
+        {/* Right Floating Card: DevLogic Labs Agency Spotlight with Hover Feedback Animation */}
         <motion.div
           initial={{ opacity: 0, x: 45 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.4, ease }}
           className="absolute right-[4%] top-[18%] sm:top-[20%] lg:top-[22%] z-30 hidden w-64 md:block"
         >
-          <div className="animate-float border border-panel-border bg-panel-card p-4 sm:p-5 backdrop-blur-sm shadow-soft">
+          <a
+            href={agencyWhatsappLink()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group block animate-float border border-panel-border bg-panel-card p-4 sm:p-5 backdrop-blur-sm shadow-soft transition-all duration-300 hover:scale-105 hover:border-primary/80 hover:shadow-glow cursor-pointer"
+          >
             <div className="flex items-center gap-3">
               <img
                 src={devlogicLogo}
                 alt="DevLogic Labs logo"
-                className="h-11 w-11 shrink-0 rounded-xl border border-primary/30 bg-card p-1 object-cover shadow-xs"
+                className="h-11 w-11 shrink-0 rounded-xl border border-primary/30 bg-card p-1 object-cover shadow-xs transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
               />
               <div className="min-w-0">
-                <p className="font-display text-base leading-tight uppercase text-panel-foreground">{agency.name}</p>
+                <p className="font-sans text-base font-extrabold normal-case leading-tight text-panel-foreground group-hover:text-primary transition-colors">
+                  DevLogic Labs
+                </p>
                 <span className="inline-block rounded-full bg-primary/15 px-2 py-0.2 font-display text-[0.62rem] font-bold uppercase tracking-wider text-primary">
                   Digital Agency
                 </span>
@@ -228,16 +239,11 @@ export function Hero() {
               <span className="flex items-center gap-1 text-panel-muted text-[0.72rem]">
                 <MapPin className="h-3 w-3 shrink-0 text-primary" /> {agency.location}
               </span>
-              <a
-                href={agencyWhatsappLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold text-primary hover:underline text-[0.72rem] uppercase tracking-wider inline-flex items-center gap-1"
-              >
-                Inquire <ArrowUpRight className="h-3 w-3" />
-              </a>
+              <span className="font-bold text-primary group-hover:underline text-[0.72rem] uppercase tracking-wider inline-flex items-center gap-1">
+                Inquire <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </div>
-          </div>
+          </a>
         </motion.div>
 
         <div className="absolute bottom-[calc(clamp(2.75rem,min(11vw,16vh),8.5rem)+1.25rem)] left-[3.5%] z-30 pointer-events-none select-none">

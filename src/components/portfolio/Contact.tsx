@@ -123,31 +123,40 @@ export function Contact() {
                 </li>
               ))}
             </ul>
-            {/* DevLogic Labs Agency Spotlight */}
-            <div className="mt-7 flex items-center gap-3.5 rounded-2xl border border-panel-border bg-panel-card/70 p-3.5 backdrop-blur-xs">
-              <img
-                src={devlogicLogo}
-                alt="DevLogic Labs logo"
-                className="h-11 w-11 shrink-0 rounded-xl border border-panel-border bg-card p-1 object-cover shadow-xs"
-              />
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="font-display text-sm uppercase tracking-wide text-highlight">{agency.name}</p>
-                  <span className="rounded-full bg-highlight/15 px-2 py-0.5 text-[0.65rem] font-bold uppercase text-highlight">
-                    Agency
-                  </span>
+            {/* DevLogic Labs Agency Spotlight with Interactive Hover Animation */}
+            <a
+              href={agencyWhatsappLink("Hi DevLogic Labs, I'd like to discuss a custom digital project.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-7 block rounded-2xl border border-panel-border bg-panel-card/85 p-4 backdrop-blur-xs transition-all duration-300 hover:border-highlight hover:bg-panel-card hover:shadow-glow hover:-translate-y-1 cursor-pointer"
+            >
+              <div className="flex items-center gap-3.5">
+                <img
+                  src={devlogicLogo}
+                  alt="DevLogic Labs logo"
+                  className="h-12 w-12 shrink-0 rounded-xl border border-panel-border bg-card p-1 object-cover shadow-xs transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-sans text-base font-extrabold normal-case text-highlight tracking-tight group-hover:underline">
+                      DevLogic Labs
+                    </span>
+                    <span className="rounded-full bg-highlight/20 px-2 py-0.5 text-[0.65rem] font-bold uppercase text-highlight">
+                      Agency
+                    </span>
+                  </div>
+                  <p className="mt-0.5 text-xs text-panel-muted truncate leading-relaxed">{agency.tagline}</p>
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1 text-[0.78rem] font-bold text-panel-foreground group-hover:text-highlight transition-colors">
+                      WhatsApp: {agency.phoneDisplay}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-[0.7rem] font-bold uppercase tracking-wider text-highlight">
+                      Inquire <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs text-panel-muted truncate">{agency.tagline}</p>
-                <a
-                  href={agencyWhatsappLink()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-1 inline-flex items-center gap-1 text-[0.75rem] font-semibold text-panel-foreground hover:text-highlight"
-                >
-                  WhatsApp: {agency.phoneDisplay} <ArrowUpRight className="h-3 w-3" />
-                </a>
               </div>
-            </div>
+            </a>
 
             <div className="mt-6 flex flex-wrap items-center gap-2">
               <Button asChild variant="hero" size="default" className="text-xs">
@@ -162,7 +171,7 @@ export function Contact() {
                 className="text-xs border-highlight/40 text-highlight hover:bg-highlight hover:text-highlight-foreground"
               >
                 <a href={agencyWhatsappLink()} target="_blank" rel="noopener noreferrer">
-                  <WhatsappIcon /> DevLogic WhatsApp
+                  <WhatsappIcon /> <span className="normal-case font-bold">DevLogic Labs</span> WhatsApp
                 </a>
               </Button>
               <Button asChild variant="panel" size="icon" className="h-10 w-10">
