@@ -157,7 +157,7 @@ export function Projects() {
                 Explore All Project Repositories on GitHub
               </h4>
               <p className="max-w-2xl text-xs leading-relaxed text-panel-muted sm:text-sm">
-                හැම project එකකටම අදාළ source code repos සහ development history මගේ GitHub profile එකට පිවිස පහසුවෙන් බලාගත හැක.
+                Source code repositories, architecture details, and active development history for these projects are available directly on my GitHub profile.
               </p>
             </div>
             <Button asChild variant="hero" size="lg" className="shrink-0 font-bold uppercase tracking-wider">
