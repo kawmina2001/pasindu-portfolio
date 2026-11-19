@@ -1,4 +1,4 @@
-import { Briefcase, Building2, GraduationCap, Languages, MapPin, Target } from "lucide-react";
+import { Briefcase, Building2, GraduationCap, MapPin, Target } from "lucide-react";
 import { agency, education, personal } from "@/data/personal";
 import { experiences } from "@/data/experience";
 import { Reveal } from "./motion";
@@ -30,11 +30,6 @@ export function About() {
       icon: MapPin,
       label: "Based in",
       value: personal.location,
-    },
-    {
-      icon: Languages,
-      label: "Languages",
-      value: personal.languages.join(" · "),
     },
   ];
 

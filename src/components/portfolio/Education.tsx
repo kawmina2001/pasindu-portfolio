@@ -1,5 +1,5 @@
-import { Award, GraduationCap, Languages, Users } from "lucide-react";
-import { certifications, education, extracurricular, personal } from "@/data/personal";
+import { Award, GraduationCap, Users } from "lucide-react";
+import { certifications, education, extracurricular } from "@/data/personal";
 import { Reveal } from "./motion";
 import { SectionHeading } from "./SectionHeading";
 
@@ -75,17 +75,6 @@ export function Education() {
                 </article>
               </Reveal>
             ))}
-            <Reveal from="right" delay={0.2}>
-              <article className="flex gap-3.5 rounded-3xl border border-border bg-card p-4 shadow-soft sm:gap-4 sm:p-6">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground sm:h-12 sm:w-12">
-                  <Languages className="h-5 w-5 sm:h-6 sm:w-6" />
-                </span>
-                <div>
-                  <p className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground sm:text-xs">Languages</p>
-                  <h3 className="mt-1 text-lg leading-tight text-foreground sm:text-2xl">{personal.languages.join(" & ")}</h3>
-                </div>
-              </article>
-            </Reveal>
           </div>
         </div>
       </div>
