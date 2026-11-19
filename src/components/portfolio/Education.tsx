@@ -59,8 +59,18 @@ export function Education() {
                   </span>
                   <div>
                     <p className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground sm:text-xs">Extra-curricular</p>
-                    <h3 className="mt-1 text-lg leading-tight text-foreground sm:text-2xl">{x.title}</h3>
+                    <h3 className="mt-1 text-lg font-bold leading-tight text-foreground sm:text-2xl">{x.title}</h3>
+                    {"companies" in x && x.companies && (
+                      <p className="mt-1 text-xs font-bold uppercase tracking-wider text-highlight sm:text-[0.8rem]">
+                        {x.companies}
+                      </p>
+                    )}
                     <p className="mt-0.5 text-xs text-muted-foreground sm:text-sm">{x.role}</p>
+                    {"description" in x && x.description && (
+                      <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground/90 sm:text-sm">
+                        {x.description}
+                      </p>
+                    )}
                   </div>
                 </article>
               </Reveal>

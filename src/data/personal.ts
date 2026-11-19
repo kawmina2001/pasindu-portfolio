@@ -63,7 +63,13 @@ export const certifications = [
 ];
 
 export const extracurricular = [
-  { title: "WSO2 Industry Visit", role: "Organizing Committee (OC) Member" },
+  {
+    title: "Tech Industry Visits",
+    companies: "WSO2 • IFS • 99x • Zone24x7",
+    role: "Organizing Committee (OC) Member & Participant",
+    description:
+      "Organized and participated in technical exposure visits to Sri Lanka's leading technology enterprises: WSO2, IFS, 99x, and Zone24x7, gaining firsthand insights into cloud architectures, enterprise software, and deep-tech R&D.",
+  },
 ];
 
 export const process = [
