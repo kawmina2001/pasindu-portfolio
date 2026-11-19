@@ -42,7 +42,8 @@ export function Footer() {
               <li><a href={personal.github} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">GitHub</a></li>
               <li><a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">Personal WhatsApp</a></li>
               <li><a href={agencyWhatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">DevLogic WhatsApp</a></li>
-              <li><a href={`mailto:${personal.email}`} className="hover:text-highlight">Email</a></li>
+              <li><a href={`mailto:${agency.email}`} className="hover:text-highlight">DevLogic Email</a></li>
+              <li><a href={`mailto:${personal.email}`} className="hover:text-highlight">Personal Email</a></li>
             </ul>
           </div>
 
@@ -82,6 +83,23 @@ export function Footer() {
 
             {/* Generously spaced contact channels for clear identification */}
             <div className="mt-3.5 space-y-2.5">
+              <div className="flex items-center gap-3 rounded-xl border border-panel-border/60 bg-panel-card/40 px-3.5 py-2.5 transition-colors hover:border-panel-border hover:bg-panel-card/70">
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-highlight/15 text-xs">
+                  ✉️
+                </span>
+                <div className="min-w-0 flex-1 leading-tight">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-wider text-panel-muted">
+                    DevLogic Labs Agency Email
+                  </p>
+                  <a
+                    href={`mailto:${agency.email}`}
+                    className="font-sans text-sm font-bold text-panel-foreground hover:text-highlight transition-colors mt-0.5 inline-block break-all"
+                  >
+                    {agency.email}
+                  </a>
+                </div>
+              </div>
+
               <div className="flex items-center gap-3 rounded-xl border border-panel-border/60 bg-panel-card/40 px-3.5 py-2.5 transition-colors hover:border-panel-border hover:bg-panel-card/70">
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-highlight/15 text-xs">
                   🏢

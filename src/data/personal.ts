@@ -47,7 +47,7 @@ export const agency = {
   location: "Colombo, Sri Lanka",
   phoneDisplay: "+94 72 327 0863",
   phoneE164: "94723270863",
-  email: "pasindukawmina85@gmail.com",
+  email: "devlogilabs.mail@gmail.com",
   description:
     "Custom Digital Solutions & Technology Agency delivering bespoke web applications, enterprise business systems, and AI-driven innovations.",
 };

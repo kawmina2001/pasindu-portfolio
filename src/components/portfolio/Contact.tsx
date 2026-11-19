@@ -62,9 +62,10 @@ export function Contact() {
   };
 
   const info = [
-    { icon: Mail, label: "Email", value: personal.email, href: `mailto:${personal.email}` },
-    { icon: Phone, label: "Personal Phone / WhatsApp", value: personal.phoneDisplay, href: `tel:+${personal.phoneE164}` },
+    { icon: Mail, label: "DevLogic Labs Agency Email", value: agency.email, href: `mailto:${agency.email}` },
     { icon: Phone, label: "DevLogic Labs Business WhatsApp", value: agency.phoneDisplay, href: agencyWhatsappLink() },
+    { icon: Mail, label: "Personal Email", value: personal.email, href: `mailto:${personal.email}` },
+    { icon: Phone, label: "Personal Phone / Direct", value: personal.phoneDisplay, href: `tel:+${personal.phoneE164}` },
     { icon: MapPin, label: "Location", value: personal.location },
   ];
 
