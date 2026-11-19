@@ -135,20 +135,24 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.25, ease }}
           className="absolute left-[4.5%] top-14 z-30 w-[90%] max-w-[18.5rem] sm:top-[20%] sm:w-[28%] lg:top-[22%] lg:w-[24%]"
         >
-          {/* DevLogic Labs Agency Badge with Interactive Hover Animation */}
+          {/* DevLogic Labs Agency Badge with Active Status Beacon */}
           <a
             href="#services"
-            className="group mb-2.5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-card/90 px-3 py-1 backdrop-blur-md shadow-xs transition-all duration-300 hover:scale-105 hover:border-primary hover:shadow-glow cursor-pointer"
+            className="group mb-2.5 inline-flex items-center gap-2 rounded-full border border-panel-border bg-panel-card/90 px-3 py-1.5 backdrop-blur-md shadow-xs transition-all duration-300 hover:border-highlight/60 hover:bg-panel-card cursor-pointer"
           >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
             <img
               src={devlogicLogo}
               alt="DevLogic Labs logo"
-              className="h-4.5 w-4.5 rounded-full object-cover transition-transform duration-300 group-hover:rotate-12 group-hover:scale-115"
+              className="h-4 w-4 rounded-full object-cover"
             />
-            <span className="font-sans text-[0.72rem] font-black normal-case tracking-tight text-primary group-hover:underline">
+            <span className="font-sans text-[0.76rem] font-black normal-case tracking-tight text-panel-foreground group-hover:text-highlight transition-colors">
               DevLogic Labs
             </span>
-            <span className="text-[0.6rem] font-bold uppercase tracking-wider text-panel-muted">• Agency</span>
+            <span className="text-[0.62rem] font-bold uppercase tracking-wider text-panel-muted">• Agency</span>
           </a>
 
           <p className="mb-2 min-h-4 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-panel-muted sm:mb-2.5 sm:text-xs" aria-live="polite">
@@ -201,30 +205,30 @@ export function Hero() {
           </div>
         </motion.div>
 
-        {/* Right Floating Card: DevLogic Labs Agency Spotlight with Hover Feedback Animation */}
+        {/* Right Floating Card: DevLogic Labs Agency Spotlight with Dedicated Action Button */}
         <motion.div
           initial={{ opacity: 0, x: 45 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.4, ease }}
-          className="absolute right-[4%] top-[18%] sm:top-[20%] lg:top-[22%] z-30 hidden w-64 md:block"
+          className="absolute right-[4%] top-[18%] sm:top-[20%] lg:top-[22%] z-30 hidden w-68 md:block"
         >
           <a
             href={agencyWhatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="group block animate-float border border-panel-border bg-panel-card p-4 sm:p-5 backdrop-blur-sm shadow-soft transition-all duration-300 hover:scale-105 hover:border-primary/80 hover:shadow-glow cursor-pointer"
+            className="group block animate-float border border-panel-border bg-panel-card p-4 sm:p-5 backdrop-blur-sm shadow-soft transition-all duration-300 hover:border-highlight/60 hover:shadow-glow cursor-pointer"
           >
             <div className="flex items-center gap-3">
               <img
                 src={devlogicLogo}
                 alt="DevLogic Labs logo"
-                className="h-11 w-11 shrink-0 rounded-xl border border-primary/30 bg-card p-1 object-cover shadow-xs transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
+                className="h-11 w-11 shrink-0 rounded-xl border border-panel-border bg-card p-1 object-cover shadow-xs"
               />
-              <div className="min-w-0">
-                <p className="font-sans text-base font-extrabold normal-case leading-tight text-panel-foreground group-hover:text-primary transition-colors">
+              <div className="min-w-0 flex-1">
+                <p className="font-sans text-base font-black normal-case leading-tight text-panel-foreground group-hover:text-highlight transition-colors">
                   DevLogic Labs
                 </p>
-                <span className="inline-block rounded-full bg-primary/15 px-2 py-0.2 font-display text-[0.62rem] font-bold uppercase tracking-wider text-primary">
+                <span className="inline-block rounded-full bg-highlight/15 px-2 py-0.5 font-sans text-[0.62rem] font-bold uppercase tracking-wider text-highlight mt-0.5">
                   Digital Agency
                 </span>
               </div>
@@ -237,11 +241,16 @@ export function Hero() {
             </p>
             <div className="mt-4 flex items-center justify-between border-t border-panel-border pt-3 text-xs">
               <span className="flex items-center gap-1 text-panel-muted text-[0.72rem]">
-                <MapPin className="h-3 w-3 shrink-0 text-primary" /> {agency.location}
+                <MapPin className="h-3 w-3 shrink-0 text-highlight" /> {agency.location}
               </span>
-              <span className="font-bold text-primary group-hover:underline text-[0.72rem] uppercase tracking-wider inline-flex items-center gap-1">
-                Inquire <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
+              <div className="inline-flex items-center gap-2">
+                <span className="text-[0.72rem] font-bold uppercase tracking-wider text-panel-muted group-hover:text-highlight transition-colors">
+                  Inquire
+                </span>
+                <span className="grid h-7 w-7 place-items-center rounded-lg bg-panel-border/80 text-panel-foreground transition-all duration-300 group-hover:bg-highlight group-hover:text-highlight-foreground group-hover:scale-110">
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </div>
             </div>
           </a>
         </motion.div>
@@ -282,15 +291,15 @@ export function Hero() {
           initial={{ opacity: 0, x: 45 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.55, ease }}
-          className="group absolute bottom-2.5 right-2.5 z-30 flex w-[13.5rem] items-center gap-2.5 border border-panel-border bg-panel-contrast p-2 text-panel-contrast-foreground shadow-elegant sm:bottom-4 sm:right-4 sm:w-[17.5rem] sm:gap-3 sm:p-2.5 lg:bottom-5 lg:right-6 lg:w-[18.5rem] lg:p-3"
+          className="group absolute bottom-2.5 right-2.5 z-30 flex w-[15.5rem] items-center gap-2.5 border border-panel-border bg-panel-contrast p-2 text-panel-contrast-foreground shadow-elegant sm:bottom-4 sm:right-4 sm:w-[19rem] sm:gap-3 sm:p-2.5 lg:bottom-5 lg:right-6 lg:w-[20.5rem] lg:p-3"
         >
           <img src={profile} alt="" aria-hidden width={72} height={72} className="h-12 w-12 shrink-0 object-cover object-top sm:h-14 sm:w-14" />
           <div className="min-w-0 flex-1">
             <p className="text-[0.65rem] uppercase tracking-widest opacity-70">Let's talk</p>
             <p className="mt-0.5 truncate text-sm font-bold">{personal.firstName}</p>
-            <p className="truncate text-xs text-primary font-semibold">Founder @ DevLogic Labs</p>
+            <p className="truncate text-xs text-highlight font-bold">Founder @ DevLogic Labs</p>
           </div>
-          <span className="grid h-9 w-9 shrink-0 place-items-center bg-highlight text-highlight-foreground transition-transform group-hover:rotate-45 sm:h-10 sm:w-10">
+          <span className="grid h-9 w-9 shrink-0 place-items-center bg-highlight text-highlight-foreground transition-transform duration-300 group-hover:rotate-45 sm:h-10 sm:w-10">
             <ArrowUpRight className="h-4.5 w-4.5 sm:h-5 sm:w-5" />
           </span>
         </motion.a>
