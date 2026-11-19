@@ -17,7 +17,7 @@ export function SectionHeading({ eyebrow, title, description, tone = "default", 
     <div
       className={cn(
         "mb-8 sm:mb-12 grid gap-4 sm:gap-6",
-        align === "split" && "md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] md:items-end",
+        align === "split" && "md:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] md:items-end",
         className,
       )}
     >
@@ -43,7 +43,7 @@ export function SectionHeading({ eyebrow, title, description, tone = "default", 
       </Reveal>
       {description && (
         <Reveal from="right">
-          <p className={cn("text-xs leading-relaxed uppercase tracking-wide sm:text-sm", panel ? "text-panel-muted" : "text-muted-foreground")}>
+          <p className={cn("text-xs font-medium leading-relaxed tracking-normal sm:text-sm", panel ? "text-panel-muted" : "text-muted-foreground")}>
             {description}
           </p>
         </Reveal>

@@ -25,6 +25,7 @@ export const personal = {
   languages: ["Sinhala", "English"],
   bio: [
     "I am a fourth-year Bachelor of Information and Communication Technology (Hons) undergraduate at the University of Vavuniya, Sri Lanka, with a strong passion for software development, emerging technologies, and artificial intelligence.",
+    "Driven by the vision of bridging modern engineering with real-world business challenges, I founded DevLogic Labs. Through DevLogic Labs, we partner with clients to engineer bespoke web applications, enterprise POS/ERP systems, and intelligent digital solutions tailored to automate manual processes and help businesses scale efficiently.",
     "I have hands-on experience in developing full-stack web applications using technologies such as React.js, Node.js, Express.js, and .NET. I am also familiar with RESTful API development, database management, authentication systems, and containerization using Docker.",
     "Currently, I am gaining practical industry experience as a Software Engineer Intern at CodeGen International, where I contribute to software engineering solutions and modern enterprise application development.",
     "I enjoy solving real-world problems through technology, learning new tools, and building practical applications. My long-term career goal is to become a skilled Software Engineer specializing in Artificial Intelligence and Machine Learning.",

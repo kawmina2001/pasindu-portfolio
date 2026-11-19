@@ -1,5 +1,5 @@
-import { Briefcase, GraduationCap, Languages, MapPin, Target } from "lucide-react";
-import { education, personal } from "@/data/personal";
+import { Briefcase, Building2, GraduationCap, Languages, MapPin, Target } from "lucide-react";
+import { agency, education, personal } from "@/data/personal";
 import { experiences } from "@/data/experience";
 import { Reveal } from "./motion";
 import { SectionHeading } from "./SectionHeading";
@@ -7,10 +7,35 @@ import { SectionHeading } from "./SectionHeading";
 export function About() {
   const current = experiences.find((e) => e.current);
   const facts = [
-    { icon: GraduationCap, label: "Education", value: education.degree, sub: `${education.university} · ${education.period}` },
-    { icon: Briefcase, label: "Current Internship", value: current ? `${current.position} — ${current.company}` : "—", sub: current?.location },
-    { icon: MapPin, label: "Based in", value: personal.location },
-    { icon: Languages, label: "Languages", value: personal.languages.join(" · ") },
+    {
+      icon: Building2,
+      label: "Agency Founder",
+      value: agency.name,
+      sub: agency.category,
+      badge: "Founder & Lead",
+    },
+    {
+      icon: Briefcase,
+      label: "Industry Experience",
+      value: current ? `${current.position} — ${current.company}` : "Software Engineer Intern",
+      sub: current?.location,
+    },
+    {
+      icon: GraduationCap,
+      label: "Education",
+      value: education.degree,
+      sub: `${education.university} · ${education.period}`,
+    },
+    {
+      icon: MapPin,
+      label: "Based in",
+      value: personal.location,
+    },
+    {
+      icon: Languages,
+      label: "Languages",
+      value: personal.languages.join(" · "),
+    },
   ];
 
   return (
@@ -18,13 +43,14 @@ export function About() {
       <SectionHeading
         eyebrow="About me"
         title="Who I Am"
-        description="A fourth-year ICT undergraduate who loves building practical software and exploring AI."
+        description="Fourth-year ICT undergraduate & Founder of DevLogic Labs — bridging academic research with modern software engineering to build high-performance web systems and AI solutions."
       />
 
       <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
         <Reveal from="left" className="lg:col-span-7">
           <p className="font-display text-2xl uppercase leading-tight text-foreground sm:text-3xl lg:text-4xl">
-            Hello! I'm {personal.firstName} — a full-stack developer from Sri Lanka on a path toward{" "}
+            Hello! I'm {personal.firstName} — Founder of{" "}
+            <span className="text-highlight">DevLogic Labs</span> &amp; full-stack engineer on a path toward{" "}
             <span className="text-primary">AI &amp; Machine Learning</span>.
           </p>
           <div className="mt-6 space-y-3.5 text-sm leading-relaxed text-muted-foreground sm:mt-8 sm:space-y-4 sm:text-base">
@@ -41,8 +67,15 @@ export function About() {
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground sm:h-11 sm:w-11">
                   <f.icon className="h-5 w-5" />
                 </span>
-                <div className="min-w-0">
-                  <p className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground sm:text-xs">{f.label}</p>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <p className="text-[0.7rem] font-bold uppercase tracking-widest text-muted-foreground sm:text-xs">{f.label}</p>
+                    {"badge" in f && f.badge && (
+                      <span className="rounded-full bg-highlight/15 px-2 py-0.5 text-[0.6rem] font-extrabold uppercase text-highlight">
+                        {f.badge}
+                      </span>
+                    )}
+                  </div>
                   <p className="mt-0.5 text-sm font-semibold text-foreground sm:mt-1 sm:text-base">{f.value}</p>
                   {f.sub && <p className="text-xs text-muted-foreground sm:text-sm">{f.sub}</p>}
                 </div>
