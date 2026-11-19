@@ -15,10 +15,10 @@ export const personal = {
     "UI/UX Designer",
   ],
   tagline: "Turning ideas into technology, and technology into solutions.",
-  location: "Pannipitiya, Sri Lanka",
+  location: "Colombo, Sri Lanka",
   email: "pasindukawmina85@gmail.com",
-  phoneDisplay: "+94 77 282 0226",
-  phoneE164: "94772820226",
+  phoneDisplay: "+94 72 327 0863",
+  phoneE164: "94723270863",
   linkedin: "https://linkedin.com/in/pasindu-kawmina-2ab5b4288",
   github: "https://github.com/kawmina2001",
   // Link to CV file
@@ -38,6 +38,18 @@ export const personal = {
     "Learning modern frameworks and technologies.",
     "Developing innovative and user-friendly software solutions.",
   ],
+};
+
+export const agency = {
+  name: "DevLogic Labs",
+  tagline: "Build Smart. Think Beyond.",
+  category: "Custom Digital Solutions & Technology Agency",
+  location: "Colombo, Sri Lanka",
+  phoneDisplay: "+94 72 327 0863",
+  phoneE164: "94723270863",
+  email: "pasindukawmina85@gmail.com",
+  description:
+    "Custom Digital Solutions & Technology Agency delivering bespoke web applications, enterprise business systems, and AI-driven innovations.",
 };
 
 export const education = {

@@ -1,5 +1,7 @@
-import { ArrowUpRight } from "lucide-react";
-import { services } from "@/data/services";
+import { ArrowUpRight, Sparkles } from "lucide-react";
+import devlogicLogo from "@/assets/devlogic-logo.png";
+import { agencyServicesIntro, services } from "@/data/services";
+import { whatsappLink } from "@/data/personal";
 import { Reveal, sideFor } from "./motion";
 import { SectionHeading } from "./SectionHeading";
 
@@ -8,9 +10,51 @@ export function Services() {
     <section id="services" className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-24 lg:py-28">
       <SectionHeading
         eyebrow="What I do"
-        title="My Services"
-        description="I offer a range of services that blend design and development to create seamless, user-focused digital solutions."
+        title="Services by DevLogic Labs"
+        description="All custom digital solutions and client projects are professionally engineered and delivered through my agency, DevLogic Labs."
       />
+
+      <Reveal from="up" className="mb-8 sm:mb-10">
+        <div className="relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-card via-card to-accent/40 p-5 shadow-soft sm:p-7">
+          <div aria-hidden className="grid-lines absolute inset-0 opacity-15 pointer-events-none" />
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
+            <div className="flex items-center gap-4 max-w-2xl">
+              <img
+                src={devlogicLogo}
+                alt="DevLogic Labs logo"
+                className="h-14 w-14 sm:h-16 sm:w-16 shrink-0 rounded-2xl border border-primary/30 object-cover shadow-sm bg-card p-1"
+              />
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 border border-primary/25 px-2.5 py-0.5 font-display text-xs text-primary uppercase tracking-wider">
+                    <Sparkles className="h-3 w-3" /> {agencyServicesIntro.agencyName}
+                  </span>
+                  <span className="text-[0.68rem] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    {agencyServicesIntro.category}
+                  </span>
+                </div>
+                <h3 className="mt-1.5 font-display text-xl sm:text-2xl uppercase leading-tight text-foreground">
+                  {agencyServicesIntro.tagline}
+                </h3>
+                <p className="mt-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">
+                  {agencyServicesIntro.description}
+                </p>
+              </div>
+            </div>
+            <div className="shrink-0 flex flex-wrap gap-3">
+              <a
+                href={whatsappLink("Hi Pasindu, I'd like to discuss a project with DevLogic Labs.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:scale-105"
+              >
+                Consult DevLogic Labs <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {services.map((s, i) => (
           <Reveal key={s.title} from={sideFor(i)} delay={(i % 3) * 0.08} className={i % 3 === 1 ? "lg:translate-y-8" : ""}>

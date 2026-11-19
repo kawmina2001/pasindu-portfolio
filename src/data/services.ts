@@ -13,6 +13,14 @@ import {
 
 export type Service = { title: string; description: string; icon: LucideIcon };
 
+export const agencyServicesIntro = {
+  agencyName: "DevLogic Labs",
+  tagline: "Build Smart. Think Beyond.",
+  category: "Custom Digital Solutions & Technology Agency",
+  description:
+    "All custom client solutions, business software, and digital services are professionally engineered and delivered through my agency, DevLogic Labs.",
+};
+
 export const services: Service[] = [
   { title: "Full-Stack Web Development", icon: Code2, description: "End-to-end web applications with modern frontends, secure APIs and reliable databases." },
   { title: "Custom POS & Business Management Systems", icon: Store, description: "Sales, inventory, repairs, credit and reporting tools tailored to how your business runs." },

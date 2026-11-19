@@ -35,15 +35,16 @@ export const experiences: Experience[] = [
     ],
   },
   {
-    position: "Freelance Web Developer",
-    company: "Self-employed",
+    position: "Founder & Lead Developer",
+    company: "DevLogic Labs",
+    location: "Colombo, Sri Lanka",
     period: "2023 – Present",
+    current: true,
     responsibilities: [
-      "Developing custom websites.",
-      "Building business management systems.",
-      "Creating e-commerce platforms.",
-      "Developing web applications based on client requirements.",
-      "Designing user-friendly interfaces.",
+      "Founded DevLogic Labs, a custom digital solutions and technology agency delivering bespoke software for businesses.",
+      "Architecting and developing custom POS, ERP, and e-commerce platforms tailored to operational requirements.",
+      "Building high-performance web applications with modern full-stack architectures and AI/ML integrations.",
+      "Managing end-to-end client projects from requirements discovery to production deployment and ongoing support.",
     ],
   },
 ];

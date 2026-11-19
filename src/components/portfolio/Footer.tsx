@@ -1,5 +1,5 @@
 import { ArrowUp, Mail } from "lucide-react";
-import { navLinks, personal, whatsappLink } from "@/data/personal";
+import { agency, navLinks, personal, whatsappLink } from "@/data/personal";
 
 export function Footer() {
   return (
@@ -45,9 +45,11 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em]">Address</p>
-            <p className="text-sm text-panel-muted">{personal.location}</p>
-            <p className="mt-2 text-sm text-panel-muted">{personal.phoneDisplay}</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em]">Agency &amp; Contact</p>
+            <p className="text-sm font-bold text-highlight">{agency.name}</p>
+            <p className="text-[0.7rem] text-panel-muted italic">{agency.tagline}</p>
+            <p className="mt-2 text-sm text-panel-muted">{personal.location}</p>
+            <p className="mt-1 text-sm text-panel-muted">{personal.phoneDisplay}</p>
           </div>
         </div>
 
