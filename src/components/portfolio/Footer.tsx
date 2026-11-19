@@ -1,5 +1,6 @@
 import { ArrowUp, Mail } from "lucide-react";
-import { agency, navLinks, personal, whatsappLink } from "@/data/personal";
+import devlogicLogo from "@/assets/devlogic-logo.png";
+import { agency, agencyWhatsappLink, navLinks, personal, whatsappLink } from "@/data/personal";
 
 export function Footer() {
   return (
@@ -39,17 +40,38 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-panel-muted">
               <li><a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">LinkedIn</a></li>
               <li><a href={personal.github} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">GitHub</a></li>
-              <li><a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">WhatsApp</a></li>
+              <li><a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">Personal WhatsApp</a></li>
+              <li><a href={agencyWhatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-highlight">DevLogic WhatsApp</a></li>
               <li><a href={`mailto:${personal.email}`} className="hover:text-highlight">Email</a></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em]">Agency &amp; Contact</p>
-            <p className="text-sm font-bold text-highlight">{agency.name}</p>
-            <p className="text-[0.7rem] text-panel-muted italic">{agency.tagline}</p>
-            <p className="mt-2 text-sm text-panel-muted">{personal.location}</p>
-            <p className="mt-1 text-sm text-panel-muted">{personal.phoneDisplay}</p>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em]">Agency &amp; Contact</p>
+            <div className="flex items-center gap-2.5">
+              <img
+                src={devlogicLogo}
+                alt="DevLogic Labs logo"
+                className="h-9 w-9 shrink-0 rounded-lg border border-panel-border bg-card p-0.5 object-cover"
+              />
+              <div className="min-w-0">
+                <p className="text-sm font-bold text-highlight">{agency.name}</p>
+                <p className="text-[0.68rem] text-panel-muted italic">{agency.tagline}</p>
+              </div>
+            </div>
+            <p className="mt-3 text-xs text-panel-muted">📍 {personal.location}</p>
+            <p className="mt-1 text-xs text-panel-muted">
+              🏢 WhatsApp:{" "}
+              <a href={agencyWhatsappLink()} target="_blank" rel="noopener noreferrer" className="text-panel-foreground hover:text-highlight font-semibold">
+                {agency.phoneDisplay}
+              </a>
+            </p>
+            <p className="mt-1 text-xs text-panel-muted">
+              👤 Personal:{" "}
+              <a href={`tel:+${personal.phoneE164}`} className="text-panel-foreground hover:text-highlight font-semibold">
+                {personal.phoneDisplay}
+              </a>
+            </p>
           </div>
         </div>
 

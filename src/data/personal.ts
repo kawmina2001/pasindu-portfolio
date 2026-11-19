@@ -17,8 +17,8 @@ export const personal = {
   tagline: "Turning ideas into technology, and technology into solutions.",
   location: "Colombo, Sri Lanka",
   email: "pasindukawmina85@gmail.com",
-  phoneDisplay: "+94 72 327 0863",
-  phoneE164: "94723270863",
+  phoneDisplay: "+94 77 282 0226",
+  phoneE164: "94772820226",
   linkedin: "https://linkedin.com/in/pasindu-kawmina-2ab5b4288",
   github: "https://github.com/kawmina2001",
   // Link to CV file
@@ -95,3 +95,6 @@ export const navLinks = [
 
 export const whatsappLink = (text = "Hi Pasindu, I'd like to discuss a project with you.") =>
   `https://wa.me/${personal.phoneE164}?text=${encodeURIComponent(text)}`;
+
+export const agencyWhatsappLink = (text = "Hi DevLogic Labs, I'd like to discuss a project.") =>
+  `https://wa.me/${agency.phoneE164}?text=${encodeURIComponent(text)}`;

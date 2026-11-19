@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { whatsappLink } from "@/data/personal";
+import { agencyWhatsappLink, whatsappLink } from "@/data/personal";
 import { filterProjects, projects } from "@/data/projects";
 import { buildMailto, contactSchema } from "@/components/portfolio/Contact";
 
 describe("portfolio rules", () => {
-  it("Hire Me opens WhatsApp on +94 72 327 0863", () => {
-    expect(whatsappLink()).toMatch(/^https:\/\/wa\.me\/94723270863\?text=/);
+  it("Hire Me opens personal WhatsApp on +94 77 282 0226", () => {
+    expect(whatsappLink()).toMatch(/^https:\/\/wa\.me\/94772820226\?text=/);
+  });
+
+  it("DevLogic Labs consultation opens business WhatsApp on +94 72 327 0863", () => {
+    expect(agencyWhatsappLink()).toMatch(/^https:\/\/wa\.me\/94723270863\?text=/);
   });
 
   it("project buttons only exist for real links (none provided yet)", () => {

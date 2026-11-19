@@ -1,7 +1,7 @@
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import devlogicLogo from "@/assets/devlogic-logo.png";
 import { agencyServicesIntro, services } from "@/data/services";
-import { whatsappLink } from "@/data/personal";
+import { agencyWhatsappLink } from "@/data/personal";
 import { Reveal, sideFor } from "./motion";
 import { SectionHeading } from "./SectionHeading";
 
@@ -43,7 +43,7 @@ export function Services() {
             </div>
             <div className="shrink-0 flex flex-wrap gap-3">
               <a
-                href={whatsappLink("Hi Pasindu, I'd like to discuss a project with DevLogic Labs.")}
+                href={agencyWhatsappLink("Hi DevLogic Labs, I'd like to discuss a project with your agency.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:scale-105"

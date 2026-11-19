@@ -3,7 +3,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { ArrowUpRight, Mail, MapPin, Phone, Send } from "lucide-react";
-import { personal, whatsappLink } from "@/data/personal";
+import devlogicLogo from "@/assets/devlogic-logo.png";
+import { agency, agencyWhatsappLink, personal, whatsappLink } from "@/data/personal";
 import { services } from "@/data/services";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,7 +49,8 @@ export function Contact() {
 
   const info = [
     { icon: Mail, label: "Email", value: personal.email, href: `mailto:${personal.email}` },
-    { icon: Phone, label: "Phone / WhatsApp", value: personal.phoneDisplay, href: `tel:+${personal.phoneE164}` },
+    { icon: Phone, label: "Personal Phone / WhatsApp", value: personal.phoneDisplay, href: `tel:+${personal.phoneE164}` },
+    { icon: Phone, label: "DevLogic Labs Business WhatsApp", value: agency.phoneDisplay, href: agencyWhatsappLink() },
     { icon: MapPin, label: "Location", value: personal.location },
   ];
 
@@ -107,18 +109,54 @@ export function Contact() {
                 </li>
               ))}
             </ul>
-            <div className="mt-8 flex flex-wrap gap-2">
-              <Button asChild variant="hero" size="xl">
+            {/* DevLogic Labs Agency Spotlight */}
+            <div className="mt-7 flex items-center gap-3.5 rounded-2xl border border-panel-border bg-panel-card/70 p-3.5 backdrop-blur-xs">
+              <img
+                src={devlogicLogo}
+                alt="DevLogic Labs logo"
+                className="h-11 w-11 shrink-0 rounded-xl border border-panel-border bg-card p-1 object-cover shadow-xs"
+              />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <p className="font-display text-sm uppercase tracking-wide text-highlight">{agency.name}</p>
+                  <span className="rounded-full bg-highlight/15 px-2 py-0.5 text-[0.65rem] font-bold uppercase text-highlight">
+                    Agency
+                  </span>
+                </div>
+                <p className="text-xs text-panel-muted truncate">{agency.tagline}</p>
+                <a
+                  href={agencyWhatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 inline-flex items-center gap-1 text-[0.75rem] font-semibold text-panel-foreground hover:text-highlight"
+                >
+                  WhatsApp: {agency.phoneDisplay} <ArrowUpRight className="h-3 w-3" />
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              <Button asChild variant="hero" size="default" className="text-xs">
                 <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-                  <WhatsappIcon /> Chat on WhatsApp
+                  <WhatsappIcon /> Personal WhatsApp
                 </a>
               </Button>
-              <Button asChild variant="panel" size="icon" className="h-12 w-12">
+              <Button
+                asChild
+                variant="panel"
+                size="default"
+                className="text-xs border-highlight/40 text-highlight hover:bg-highlight hover:text-highlight-foreground"
+              >
+                <a href={agencyWhatsappLink()} target="_blank" rel="noopener noreferrer">
+                  <WhatsappIcon /> DevLogic WhatsApp
+                </a>
+              </Button>
+              <Button asChild variant="panel" size="icon" className="h-10 w-10">
                 <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <LinkedinIcon />
                 </a>
               </Button>
-              <Button asChild variant="panel" size="icon" className="h-12 w-12">
+              <Button asChild variant="panel" size="icon" className="h-10 w-10">
                 <a href={personal.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                   <GithubIcon />
                 </a>
