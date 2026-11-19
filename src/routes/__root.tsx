@@ -47,15 +47,21 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
     // When a new Vercel deployment completes, client browsers with stale chunk hashes
     // can experience a dynamic import error. Auto-reload once to fetch fresh assets.
     if (typeof window !== "undefined") {
-      const msg = error instanceof Error ? error.message : String(error);
-      const isChunkError =
-        msg.includes("Failed to fetch dynamically imported module") ||
-        msg.includes("dynamically imported module") ||
-        msg.includes("Importing a module script failed");
+      try {
+        const msg = error instanceof Error ? error.message : String(error);
+        const isChunkError =
+          msg.includes("Failed to fetch dynamically imported module") ||
+          msg.includes("dynamically imported module") ||
+          msg.includes("Importing a module script failed") ||
+          msg.includes("Loading chunk") ||
+          msg.includes("error loading dynamically imported module");
 
-      if (isChunkError && !sessionStorage.getItem("chunk_reload_done")) {
-        sessionStorage.setItem("chunk_reload_done", "true");
-        window.location.reload();
+        if (isChunkError && !sessionStorage.getItem("chunk_reload_done")) {
+          sessionStorage.setItem("chunk_reload_done", "true");
+          window.location.reload();
+        }
+      } catch {
+        // Storage may be restricted in private browsing mode
       }
     }
   }, [error]);
@@ -72,12 +78,16 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
-              router.invalidate();
-              reset();
+              if (typeof window !== "undefined") {
+                window.location.reload();
+              } else {
+                router.invalidate();
+                reset();
+              }
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            Refresh page
           </button>
           <a
             href="/"
@@ -111,9 +121,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "shortcut icon", href: "/favicon.ico" },
-      { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "icon", href: "/favicon.png?v=3", type: "image/png" },
+      { rel: "shortcut icon", href: "/favicon.ico?v=3" },
+      { rel: "apple-touch-icon", href: "/favicon.png?v=3" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -148,7 +158,11 @@ function RootComponent() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      sessionStorage.removeItem("chunk_reload_done");
+      try {
+        sessionStorage.removeItem("chunk_reload_done");
+      } catch {
+        // Ignore storage restrictions
+      }
     }
   }, []);
 

@@ -138,7 +138,7 @@ export function Hero() {
           {/* DevLogic Labs Agency Badge with Active Status Beacon */}
           <a
             href="#services"
-            className="group mb-2.5 inline-flex items-center gap-2 rounded-full border border-panel-border bg-panel-card/90 px-3 py-1.5 backdrop-blur-md shadow-xs transition-all duration-300 hover:border-highlight/60 hover:bg-panel-card cursor-pointer"
+            className="group mb-3.5 inline-flex items-center gap-2 rounded-full border border-panel-border bg-panel-card/90 px-3 py-1.5 backdrop-blur-md shadow-xs transition-all duration-300 hover:border-highlight/60 hover:bg-panel-card cursor-pointer"
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -155,14 +155,14 @@ export function Hero() {
             <span className="text-[0.62rem] font-bold uppercase tracking-wider text-panel-muted">• Agency</span>
           </a>
 
-          <p className="mb-2 min-h-4 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-panel-muted sm:mb-2.5 sm:text-xs" aria-live="polite">
+          <p className="mb-3 min-h-[1.4rem] text-[0.7rem] font-bold uppercase tracking-[0.16em] text-panel-muted sm:mb-3.5 sm:text-xs" aria-live="polite">
             I'm a <span className="text-panel-foreground">{role}</span>
             <span className="caret-blink ml-1 inline-block h-[0.9em] w-[2px] translate-y-[0.12em] bg-panel-foreground" aria-hidden />
           </p>
-          <p className="text-xs font-bold uppercase leading-[1.6] tracking-wide sm:text-sm">
-            Founder of <span className="normal-case font-black text-panel-foreground">DevLogic Labs</span>. We build custom web applications, POS/ERP systems &amp; AI-driven solutions.
+          <p className="text-xs font-medium normal-case leading-relaxed tracking-normal sm:text-[0.88rem] text-panel-foreground/90">
+            Founder of <span className="font-extrabold text-panel-foreground">DevLogic Labs</span>. We build custom web applications, POS/ERP systems &amp; AI-driven solutions.
           </p>
-          <div className="mt-3.5 flex flex-wrap gap-2 sm:mt-5">
+          <div className="mt-4 flex flex-wrap gap-2 sm:mt-5">
             <Button asChild variant="hero" size="sm" className="px-3 sm:h-9 sm:px-3.5 text-xs">
               <a
                 href={agencyWhatsappLink("Hi DevLogic Labs, I'm visiting your website and would like to discuss a custom digital project.")}
