@@ -43,6 +43,21 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
+
+    // When a new Vercel deployment completes, client browsers with stale chunk hashes
+    // can experience a dynamic import error. Auto-reload once to fetch fresh assets.
+    if (typeof window !== "undefined") {
+      const msg = error instanceof Error ? error.message : String(error);
+      const isChunkError =
+        msg.includes("Failed to fetch dynamically imported module") ||
+        msg.includes("dynamically imported module") ||
+        msg.includes("Importing a module script failed");
+
+      if (isChunkError && !sessionStorage.getItem("chunk_reload_done")) {
+        sessionStorage.setItem("chunk_reload_done", "true");
+        window.location.reload();
+      }
+    }
   }, [error]);
 
   return (
@@ -97,6 +112,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -128,6 +145,12 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      sessionStorage.removeItem("chunk_reload_done");
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
