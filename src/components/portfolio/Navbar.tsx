@@ -56,6 +56,16 @@ export function Navbar() {
           <img
             src={brandAvatar}
             alt="Pasindu Logo"
+            width={36}
+            height={36}
+            loading="eager"
+            decoding="async"
+            onError={(e) => {
+              // Safe fallback to public root static asset
+              if (typeof window !== "undefined" && !e.currentTarget.src.endsWith("/brand-avatar.png")) {
+                e.currentTarget.src = "/brand-avatar.png";
+              }
+            }}
             className={cn(
               "h-8 w-8 sm:h-9 sm:w-9 shrink-0 rounded-lg object-cover border transition-transform duration-300 group-hover:scale-105 shadow-xs",
               scrolled ? "border-primary/40 bg-card" : "border-panel-border bg-panel-card",
