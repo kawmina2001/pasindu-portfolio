@@ -119,26 +119,9 @@ export function Footer() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-xl border border-panel-border/60 bg-panel-card/40 px-3.5 py-2.5 transition-colors hover:border-panel-border hover:bg-panel-card/70">
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-highlight/15 text-xs">
-                  👤
-                </span>
-                <div className="min-w-0 flex-1 leading-tight">
-                  <p className="text-[0.68rem] font-bold uppercase tracking-wider text-panel-muted">
-                    Pasindu Personal Phone / Direct Chat
-                  </p>
-                  <a
-                    href={`tel:+${personal.phoneE164}`}
-                    className="font-sans text-sm font-bold text-panel-foreground hover:text-highlight transition-colors mt-0.5 inline-block"
-                  >
-                    {personal.phoneDisplay}
-                  </a>
-                </div>
-              </div>
-
               <div className="flex items-center gap-2.5 px-1 pt-0.5 text-xs text-panel-muted leading-relaxed">
                 <span>📍</span>
-                <span>{personal.location} • Custom Digital Solutions &amp; Technology Agency</span>
+                <span>{agency.location} • {agency.category}</span>
               </div>
             </div>
           </div>
