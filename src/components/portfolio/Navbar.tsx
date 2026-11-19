@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { navLinks, personal, agency, agencyWhatsappLink, whatsappLink } from "@/data/personal";
+import brandAvatar from "@/assets/brand-avatar.png";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useActiveSection, useScrolledPast } from "@/hooks/useActiveSection";
@@ -49,27 +50,20 @@ export function Navbar() {
         <a
           href="#home"
           onClick={(e) => handleNavClick(e, "home")}
-          className="flex min-w-0 shrink-0 items-center gap-2"
+          className="group flex min-w-0 shrink-0 items-center gap-2.5"
           aria-label={`${personal.fullName} — home`}
         >
-          <span
+          <img
+            src={brandAvatar}
+            alt="Pasindu Logo"
             className={cn(
-              "grid h-8 w-8 shrink-0 place-items-center border font-display text-xs",
-              scrolled
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-panel-border bg-panel-card text-panel-foreground",
+              "h-8 w-8 sm:h-9 sm:w-9 shrink-0 rounded-lg object-cover border transition-transform duration-300 group-hover:scale-105 shadow-xs",
+              scrolled ? "border-primary/40 bg-card" : "border-panel-border bg-panel-card",
             )}
-          >
-            {personal.initials}
+          />
+          <span className={cn("truncate text-lg font-extrabold tracking-[-0.04em]", scrolled ? "text-foreground" : "text-panel-foreground")}>
+            {personal.firstName}<sup className="ml-0.5 text-[0.55em]">®</sup>
           </span>
-          <div className="flex items-center gap-1.5">
-            <span className={cn("truncate text-lg font-extrabold tracking-[-0.04em]", scrolled ? "text-foreground" : "text-panel-foreground")}>
-              {personal.firstName}<sup className="ml-0.5 text-[0.55em]">®</sup>
-            </span>
-            <span className={cn("hidden text-[0.74rem] font-black normal-case tracking-tight sm:inline-block transition-transform hover:scale-105", scrolled ? "text-primary" : "text-highlight")}>
-              / DevLogic Labs
-            </span>
-          </div>
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex xl:gap-2">
