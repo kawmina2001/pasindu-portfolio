@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { agencyWhatsappLink, whatsappLink } from "@/data/personal";
 import { filterProjects, projects } from "@/data/projects";
-import { buildMailto, contactSchema } from "@/components/portfolio/Contact";
+import { buildAgencyWhatsAppUrl, buildMailto, contactSchema } from "@/components/portfolio/Contact";
 
 describe("portfolio rules", () => {
   it("Hire Me opens personal WhatsApp on +94 77 282 0226", () => {
@@ -10,6 +10,18 @@ describe("portfolio rules", () => {
 
   it("DevLogic Labs consultation opens business WhatsApp on +94 72 327 0863", () => {
     expect(agencyWhatsappLink()).toMatch(/^https:\/\/wa\.me\/94723270863\?text=/);
+  });
+
+  it("contact form submissions build WhatsApp message directed to +94 72 327 0863", () => {
+    const url = buildAgencyWhatsAppUrl({
+      name: "Amal Silva",
+      email: "amal@example.com",
+      projectType: "Full-Stack Web Application",
+      message: "Need a custom business system.",
+    });
+    expect(url.startsWith("https://wa.me/94723270863?text=")).toBe(true);
+    expect(url).toContain("Amal%20Silva");
+    expect(url).toContain("Full-Stack%20Web%20Application");
   });
 
   it("project buttons only exist for real links (none provided yet)", () => {

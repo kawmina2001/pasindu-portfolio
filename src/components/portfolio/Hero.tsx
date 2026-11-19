@@ -4,7 +4,8 @@ import { ArrowDownRight, ArrowUpRight, Asterisk, Download, Mail, MapPin } from "
 import { toast } from "sonner";
 import profile from "@/assets/pasindu-profile.jpg";
 import profileCutout from "@/assets/pasindu-profile-cutout.png";
-import { personal, whatsappLink } from "@/data/personal";
+import devlogicLogo from "@/assets/devlogic-logo.png";
+import { agency, agencyWhatsappLink, personal, whatsappLink } from "@/data/personal";
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon, WhatsappIcon } from "./icons";
 import { useTypewriter } from "./useTypewriter";
@@ -132,34 +133,55 @@ export function Hero() {
           initial={{ opacity: 0, x: -45 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.25, ease }}
-          className="absolute left-[4.5%] top-16 z-30 w-[90%] max-w-[17.5rem] sm:top-[22%] sm:w-[28%] lg:top-[25%] lg:w-[23%]"
+          className="absolute left-[4.5%] top-14 z-30 w-[90%] max-w-[18.5rem] sm:top-[20%] sm:w-[28%] lg:top-[22%] lg:w-[24%]"
         >
-          <p className="mb-2 min-h-4 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-panel-muted sm:mb-3 sm:text-xs" aria-live="polite">
+          {/* DevLogic Labs Agency Badge */}
+          <a
+            href="#services"
+            className="mb-2.5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-card/90 px-2.5 py-1 backdrop-blur-md shadow-xs transition-transform hover:scale-105"
+          >
+            <img src={devlogicLogo} alt="DevLogic Labs logo" className="h-4 w-4 rounded-full object-cover" />
+            <span className="font-display text-[0.68rem] uppercase tracking-wider text-primary">
+              {agency.name}
+            </span>
+            <span className="text-[0.6rem] font-bold uppercase tracking-wider text-panel-muted">• Agency</span>
+          </a>
+
+          <p className="mb-2 min-h-4 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-panel-muted sm:mb-2.5 sm:text-xs" aria-live="polite">
             I'm a <span className="text-panel-foreground">{role}</span>
             <span className="caret-blink ml-1 inline-block h-[0.9em] w-[2px] translate-y-[0.12em] bg-panel-foreground" aria-hidden />
           </p>
           <p className="text-xs font-bold uppercase leading-[1.6] tracking-wide sm:text-sm">
-            I build full-stack web applications and business systems, with a growing focus on AI &amp; machine learning.
+            Founder of DevLogic Labs. We build custom web applications, POS/ERP systems &amp; AI-driven solutions.
           </p>
           <div className="mt-3.5 flex flex-wrap gap-2 sm:mt-5">
-            <Button asChild variant="hero" size="sm" className="px-3 sm:h-9 sm:px-4">
-              <a href="#projects">
-                View projects <ArrowDownRight />
+            <Button asChild variant="hero" size="sm" className="px-3 sm:h-9 sm:px-3.5 text-xs">
+              <a
+                href={agencyWhatsappLink("Hi DevLogic Labs, I'm visiting your website and would like to discuss a custom digital project.")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsappIcon className="mr-1.5 h-3.5 w-3.5" /> Agency WhatsApp
+              </a>
+            </Button>
+            <Button asChild variant="panel" size="sm" className="px-3 sm:h-9 sm:px-3 text-xs">
+              <a href="#services">
+                Services <ArrowDownRight className="ml-1 h-3.5 w-3.5" />
               </a>
             </Button>
             {personal.cvUrl ? (
-              <Button asChild variant="panel" size="sm" className="px-3 sm:h-9 sm:px-4">
+              <Button asChild variant="panel" size="sm" className="px-2.5 sm:h-9 sm:px-3 text-xs">
                 <a href={personal.cvUrl} download="Pasindu_Kawmina_CV.pdf" target="_blank" rel="noopener noreferrer">
-                  <Download /> CV
+                  <Download className="h-3.5 w-3.5" /> CV
                 </a>
               </Button>
             ) : (
-              <Button variant="panel" size="sm" className="px-3 sm:h-9 sm:px-4" onClick={onDownloadCv}>
-                <Download /> CV
+              <Button variant="panel" size="sm" className="px-2.5 sm:h-9 sm:px-3 text-xs" onClick={onDownloadCv}>
+                <Download className="h-3.5 w-3.5" /> CV
               </Button>
             )}
           </div>
-          <div className="mt-4 flex gap-2">
+          <div className="mt-3.5 flex gap-2">
             {socials.map(({ label, Icon }) => (
               <a
                 key={label}
@@ -175,22 +197,46 @@ export function Hero() {
           </div>
         </motion.div>
 
+        {/* Right Floating Card: DevLogic Labs Agency Spotlight */}
         <motion.div
           initial={{ opacity: 0, x: 45 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.4, ease }}
-          className="absolute right-[4%] top-[20%] sm:top-[22%] lg:top-[25%] z-30 hidden w-56 md:block"
+          className="absolute right-[4%] top-[18%] sm:top-[20%] lg:top-[22%] z-30 hidden w-64 md:block"
         >
-          <div className="animate-float border border-panel-border bg-panel-card p-4 sm:p-5 backdrop-blur-sm">
-            <div className="flex items-center justify-between gap-4">
-              <p className="text-[0.65rem] font-bold uppercase tracking-[0.22em] text-panel-muted">Current focus</p>
-              <Asterisk className="h-5 w-5" aria-hidden />
+          <div className="animate-float border border-panel-border bg-panel-card p-4 sm:p-5 backdrop-blur-sm shadow-soft">
+            <div className="flex items-center gap-3">
+              <img
+                src={devlogicLogo}
+                alt="DevLogic Labs logo"
+                className="h-11 w-11 shrink-0 rounded-xl border border-primary/30 bg-card p-1 object-cover shadow-xs"
+              />
+              <div className="min-w-0">
+                <p className="font-display text-base leading-tight uppercase text-panel-foreground">{agency.name}</p>
+                <span className="inline-block rounded-full bg-primary/15 px-2 py-0.2 font-display text-[0.62rem] font-bold uppercase tracking-wider text-primary">
+                  Digital Agency
+                </span>
+              </div>
             </div>
-            <p className="mt-4 font-display text-xl sm:text-2xl leading-[1.05]">Full-stack development</p>
-            <p className="mt-2 text-xs font-semibold uppercase leading-relaxed tracking-wider text-panel-muted">AI &amp; machine learning</p>
-            <p className="mt-4 flex items-center gap-2 border-t border-panel-border pt-3.5 text-xs">
-              <MapPin className="h-4 w-4 shrink-0" /> {personal.location}
+            <p className="mt-3 font-display text-sm uppercase leading-snug text-panel-foreground">
+              {agency.tagline}
             </p>
+            <p className="mt-1.5 text-xs text-panel-muted leading-relaxed">
+              Custom Digital Solutions • Web &amp; Mobile • Enterprise Systems
+            </p>
+            <div className="mt-4 flex items-center justify-between border-t border-panel-border pt-3 text-xs">
+              <span className="flex items-center gap-1 text-panel-muted text-[0.72rem]">
+                <MapPin className="h-3 w-3 shrink-0 text-primary" /> {agency.location}
+              </span>
+              <a
+                href={agencyWhatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold text-primary hover:underline text-[0.72rem] uppercase tracking-wider inline-flex items-center gap-1"
+              >
+                Inquire <ArrowUpRight className="h-3 w-3" />
+              </a>
+            </div>
           </div>
         </motion.div>
 
@@ -236,7 +282,7 @@ export function Hero() {
           <div className="min-w-0 flex-1">
             <p className="text-[0.65rem] uppercase tracking-widest opacity-70">Let's talk</p>
             <p className="mt-0.5 truncate text-sm font-bold">{personal.firstName}</p>
-            <p className="truncate text-xs opacity-70">Full-Stack Developer</p>
+            <p className="truncate text-xs text-primary font-semibold">Founder @ DevLogic Labs</p>
           </div>
           <span className="grid h-9 w-9 shrink-0 place-items-center bg-highlight text-highlight-foreground transition-transform group-hover:rotate-45 sm:h-10 sm:w-10">
             <ArrowUpRight className="h-4.5 w-4.5 sm:h-5 sm:w-5" />

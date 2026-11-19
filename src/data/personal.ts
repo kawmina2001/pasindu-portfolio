@@ -4,15 +4,15 @@ export const personal = {
   shortName: "Pasindu Kawmina",
   firstName: "Pasindu",
   initials: "PK",
-  title: "Full-Stack Web Developer | ICT Undergraduate | Aspiring AI/ML Engineer",
-  titleLines: ["Full-Stack Web Developer", "ICT Undergraduate", "Aspiring AI/ML Engineer"],
+  title: "Founder & Lead Developer @ DevLogic Labs | Full-Stack Web Developer | ICT Undergraduate",
+  titleLines: ["Founder @ DevLogic Labs", "Full-Stack Web Developer", "Aspiring AI/ML Engineer"],
   roles: [
+    "Founder @ DevLogic Labs",
     "Full-Stack Developer",
-    "React.js Developer",
-    "Node.js Developer",
-    "Software Developer",
+    "Digital Solutions Architect",
+    "React.js & Node.js Developer",
+    "Software Engineer Intern",
     "AI/ML Enthusiast",
-    "UI/UX Designer",
   ],
   tagline: "Turning ideas into technology, and technology into solutions.",
   location: "Colombo, Sri Lanka",
@@ -74,13 +74,16 @@ export const process = [
   { step: "04", title: "Deliver & Support", text: "Deliver the final product and provide ongoing support when agreed." },
 ];
 
-// Placeholder testimonials — replace with real client feedback when available.
-export const testimonials = [
-  { quote: "Your client testimonial will appear here once it has been shared.", name: "Client Name", role: "Role, Company", placeholder: true },
-  { quote: "Space reserved for genuine feedback from a future project.", name: "Client Name", role: "Role, Company", placeholder: true },
-  { quote: "Real reviews only — this card will be updated with an actual testimonial.", name: "Client Name", role: "Role, Company", placeholder: true },
-  { quote: "Placeholder testimonial. Add real client words in src/data/personal.ts.", name: "Client Name", role: "Role, Company", placeholder: true },
-];
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  company?: string;
+  placeholder?: boolean;
+};
+
+// Real, verified client testimonials only — no placeholder names or simulated reviews.
+export const testimonials: Testimonial[] = [];
 
 export const navLinks = [
   { id: "home", label: "Home" },

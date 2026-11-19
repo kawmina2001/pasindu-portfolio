@@ -23,11 +23,24 @@ export const contactSchema = z.object({
 export type ContactValues = z.infer<typeof contactSchema>;
 
 /**
- * Builds a pre-filled email for the visitor's own mail app. No backend is connected yet,
- * so the message is only sent when the visitor presses Send there.
+ * Builds a pre-filled WhatsApp link to DevLogic Labs Business WhatsApp (+94 72 327 0863)
+ */
+export const buildAgencyWhatsAppUrl = (v: ContactValues) => {
+  const text =
+    `*New Project Enquiry for DevLogic Labs*\n\n` +
+    `👤 *Name:* ${v.name}\n` +
+    `📧 *Email:* ${v.email}\n` +
+    `💼 *Project Type:* ${v.projectType}\n\n` +
+    `📝 *Message:*\n${v.message}\n\n` +
+    `— Sent via DevLogic Labs Portfolio Website`;
+  return `https://wa.me/${agency.phoneE164}?text=${encodeURIComponent(text)}`;
+};
+
+/**
+ * Builds a pre-filled email for the visitor's mail app as an alternative.
  */
 export const buildMailto = (v: ContactValues) =>
-  `mailto:${personal.email}?subject=${encodeURIComponent(`[${v.projectType}] Enquiry from ${v.name}`)}&body=${encodeURIComponent(
+  `mailto:${agency.email}?subject=${encodeURIComponent(`[${v.projectType}] Project Enquiry from ${v.name}`)}&body=${encodeURIComponent(
     `${v.message}\n\n— ${v.name} (${v.email})`,
   )}`;
 
@@ -40,9 +53,10 @@ export function Contact() {
   } = useForm<ContactValues>({ resolver: zodResolver(contactSchema), defaultValues: { projectType: "" } });
 
   const onSubmit = (values: ContactValues) => {
-    window.location.href = buildMailto(values);
-    toast.success("Your message is ready", {
-      description: "We've opened it in your email app — press Send there to deliver it.",
+    const waUrl = buildAgencyWhatsAppUrl(values);
+    window.open(waUrl, "_blank");
+    toast.success("Opening WhatsApp...", {
+      description: `Your project enquiry has been formatted for DevLogic Labs Business WhatsApp (${agency.phoneDisplay}). Press Send in WhatsApp to deliver!`,
     });
     reset();
   };
@@ -205,11 +219,30 @@ export function Contact() {
               <Textarea id="message" rows={6} placeholder="Tell me about your project…" className="rounded-xl" aria-invalid={!!errors.message} {...register("message")} />
               {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
             </div>
-            <div className="flex flex-wrap items-center justify-between gap-3 sm:col-span-2">
-              <p className="text-xs text-muted-foreground">Opens your email app with the message ready to send.</p>
-              <Button type="submit" variant="brand" size="xl" disabled={isSubmitting}>
-                <Send /> Send message
-              </Button>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:col-span-2 pt-2">
+              <p className="text-xs text-muted-foreground">
+                Inquiries are sent directly to DevLogic Labs Business WhatsApp (<span className="font-semibold text-foreground">{agency.phoneDisplay}</span>).
+              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="default"
+                  onClick={handleSubmit((values) => {
+                    window.location.href = buildMailto(values);
+                    toast.success("Opening email app...", {
+                      description: "Your project details are formatted and ready to send via email.",
+                    });
+                    reset();
+                  })}
+                  className="rounded-xl text-xs"
+                >
+                  <Mail className="h-3.5 w-3.5 mr-1.5" /> Send via Email
+                </Button>
+                <Button type="submit" variant="brand" size="xl" disabled={isSubmitting} className="rounded-xl gap-2 font-bold uppercase tracking-wider">
+                  <WhatsappIcon className="h-4 w-4" /> Send to DevLogic WhatsApp
+                </Button>
+              </div>
             </div>
           </form>
         </Reveal>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
-import { navLinks, personal, whatsappLink } from "@/data/personal";
+import { navLinks, personal, agency, agencyWhatsappLink, whatsappLink } from "@/data/personal";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useActiveSection, useScrolledPast } from "@/hooks/useActiveSection";
@@ -62,9 +62,14 @@ export function Navbar() {
           >
             {personal.initials}
           </span>
-          <span className={cn("truncate text-lg font-extrabold tracking-[-0.04em]", scrolled ? "text-foreground" : "text-panel-foreground")}>
-            {personal.firstName}<sup className="ml-0.5 text-[0.55em]">®</sup>
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span className={cn("truncate text-lg font-extrabold tracking-[-0.04em]", scrolled ? "text-foreground" : "text-panel-foreground")}>
+              {personal.firstName}<sup className="ml-0.5 text-[0.55em]">®</sup>
+            </span>
+            <span className={cn("hidden text-[0.7rem] font-bold uppercase tracking-wider sm:inline-block", scrolled ? "text-primary" : "text-highlight")}>
+              | {agency.name}
+            </span>
+          </div>
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex xl:gap-2">
@@ -105,9 +110,14 @@ export function Navbar() {
               !scrolled && "border-panel-border bg-panel-card text-panel-foreground hover:border-panel-foreground hover:text-panel-foreground",
             )}
           />
-          <Button asChild variant={scrolled ? "brand" : "panel"} size="sm" className="hidden h-9 px-4 sm:inline-flex">
+          <Button asChild variant={scrolled ? "brand" : "hero"} size="sm" className="hidden h-9 px-3.5 sm:inline-flex text-xs font-bold uppercase tracking-wider">
+            <a href={agencyWhatsappLink("Hi DevLogic Labs, I'd like to discuss a project with your agency.")} target="_blank" rel="noopener noreferrer">
+              Agency WhatsApp
+            </a>
+          </Button>
+          <Button asChild variant="panel" size="sm" className="hidden h-9 px-3 text-xs md:inline-flex border-panel-border/70">
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-              Hire me
+              Direct Chat
             </a>
           </Button>
           <button
@@ -159,10 +169,15 @@ export function Navbar() {
                   </a>
                 </motion.li>
               ))}
-              <li className="pt-2">
+              <li className="pt-2 space-y-2">
                 <Button asChild variant="brand" size="xl" className="w-full">
+                  <a href={agencyWhatsappLink()} target="_blank" rel="noopener noreferrer">
+                    DevLogic Labs WhatsApp (+94 72 327 0863)
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="xl" className="w-full border-border">
                   <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-                    Hire me on WhatsApp
+                    Direct WhatsApp with Pasindu (+94 77 282 0226)
                   </a>
                 </Button>
               </li>
