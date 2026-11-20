@@ -63,11 +63,22 @@ function getProjectCategoryBadge(project: Project): string {
 }
 
 function ProjectCard({ project, index, onOpen }: { project: Project; index: number; onOpen: () => void }) {
-  const from = index % 2 === 0 ? "left" : "right";
+  const reduce = useReducedMotion();
   return (
-    <Reveal from={from} delay={(index % 4) * 0.05} className="flex flex-col">
-      <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-panel-border bg-panel-card text-panel-foreground shadow-soft transition-shadow duration-300 hover:shadow-elegant">
-        <button type="button" onClick={onOpen} className="relative aspect-[4/3] overflow-hidden" aria-label={`View details of ${project.title}`}>
+    <motion.div
+      layout
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={reduce ? { opacity: 0 } : { opacity: 0, y: -20, scale: 0.96 }}
+      transition={{
+        duration: 0.38,
+        delay: reduce ? 0 : (index % 4) * 0.05,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="flex flex-col"
+    >
+      <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-panel-border bg-panel-card text-panel-foreground shadow-soft transition-all duration-300 hover:shadow-elegant hover:border-highlight/50 hover:-translate-y-1">
+        <button type="button" onClick={onOpen} className="relative aspect-[4/3] overflow-hidden cursor-pointer" aria-label={`View details of ${project.title}`}>
           <ProjectVisual project={project} />
           <span className="absolute left-3 top-3 rounded-full bg-highlight px-3 py-1 font-display text-sm text-highlight-foreground shadow-xs">
             {project.number}
@@ -110,7 +121,7 @@ function ProjectCard({ project, index, onOpen }: { project: Project; index: numb
           </div>
         </div>
       </article>
-    </Reveal>
+    </motion.div>
   );
 }
 
@@ -130,35 +141,62 @@ export function Projects() {
             description="Curated sample works from Personal, Academic, UI/UX, and Research domains. Select a tab below to explore full categories."
           />
 
-          <div role="tablist" aria-label="Filter projects" className="-mx-1 mb-6 flex gap-1.5 overflow-x-auto px-1 pb-2 sm:mb-8 sm:gap-2">
-            {projectFilters.map((f) => (
-              <button
-                key={f.id}
-                role="tab"
-                aria-selected={filter === f.id}
-                onClick={() => setFilter(f.id)}
-                className={cn(
-                  "shrink-0 rounded-full border px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-wider transition-colors sm:px-4 sm:py-2 sm:text-xs",
-                  filter === f.id
-                    ? "border-highlight bg-highlight text-highlight-foreground"
-                    : "border-panel-border text-panel-foreground hover:bg-panel-card",
-                )}
-              >
-                {f.label}
-              </button>
-            ))}
+          <div
+            role="tablist"
+            aria-label="Filter projects"
+            className="-mx-1 mb-6 flex gap-2 overflow-x-auto p-1 pb-2.5 sm:mb-8 sm:gap-2.5"
+          >
+            {projectFilters.map((f) => {
+              const isActive = filter === f.id;
+              return (
+                <button
+                  key={f.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setFilter(f.id)}
+                  className={cn(
+                    "relative shrink-0 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider transition-colors duration-200 sm:px-4 sm:py-2 sm:text-xs outline-none focus-visible:ring-2 focus-visible:ring-highlight cursor-pointer",
+                    isActive
+                      ? "text-highlight-foreground"
+                      : "text-panel-foreground/80 hover:text-panel-foreground border border-panel-border/70 hover:border-panel-border hover:bg-panel-card/70",
+                  )}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="active-project-filter"
+                      className="absolute inset-0 rounded-full bg-highlight shadow-glow"
+                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{f.label}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {filter === "all" && (
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-panel-border/60 bg-panel-card/50 px-4 py-2.5 text-xs text-panel-muted backdrop-blur-xs">
-              <span className="font-semibold text-panel-foreground">
-                Flagship Samples: <span className="font-normal text-panel-muted">1 curated project each from Personal, Academic, UI/UX, and Research</span>
-              </span>
-              <span className="text-[0.68rem] uppercase tracking-wider text-highlight font-bold">
-                Select tabs above for full archives →
-              </span>
-            </div>
-          )}
+          <AnimatePresence>
+            {filter === "all" && (
+              <motion.div
+                initial={{ opacity: 0, y: -8, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: "auto" }}
+                exit={{ opacity: 0, y: -8, height: 0 }}
+                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="mb-6 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-panel-border/60 bg-panel-card/50 px-4 py-2.5 text-xs text-panel-muted backdrop-blur-xs">
+                  <span className="font-semibold text-panel-foreground">
+                    Flagship Samples:{" "}
+                    <span className="font-normal text-panel-muted">
+                      1 curated project each from Personal, Academic, UI/UX, and Research
+                    </span>
+                  </span>
+                  <span className="text-[0.68rem] font-bold uppercase tracking-wider text-highlight">
+                    Select tabs above for full archives →
+                  </span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <motion.div
             layout
