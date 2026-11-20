@@ -63,64 +63,72 @@ function getProjectCategoryBadge(project: Project): string {
 }
 
 function ProjectCard({ project, index, onOpen }: { project: Project; index: number; onOpen: () => void }) {
+  const from = index % 2 === 0 ? "left" : "right";
   const reduce = useReducedMotion();
   return (
     <motion.div
       layout
-      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, scale: 0.96 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={reduce ? { opacity: 0 } : { opacity: 0, y: -20, scale: 0.96 }}
+      key={project.id}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
       transition={{
-        duration: 0.38,
-        delay: reduce ? 0 : (index % 4) * 0.05,
+        duration: 0.28,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="flex flex-col"
+      className="flex flex-col h-full"
     >
-      <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-panel-border bg-panel-card text-panel-foreground shadow-soft transition-all duration-300 hover:shadow-elegant hover:border-highlight/50 hover:-translate-y-1">
-        <button type="button" onClick={onOpen} className="relative aspect-[4/3] overflow-hidden cursor-pointer" aria-label={`View details of ${project.title}`}>
-          <ProjectVisual project={project} />
-          <span className="absolute left-3 top-3 rounded-full bg-highlight px-3 py-1 font-display text-sm text-highlight-foreground shadow-xs">
-            {project.number}
-          </span>
-          <span className="absolute right-3 top-3 rounded-full border border-panel-border/80 bg-panel/85 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-panel-foreground backdrop-blur-md shadow-xs">
-            {getProjectCategoryBadge(project)}
-          </span>
-        </button>
-        <div className="flex flex-1 flex-col p-4 sm:p-5">
-          <h3 className="text-xl leading-tight sm:text-2xl">{project.title}</h3>
-          {project.subtitle && <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-wide text-highlight sm:text-xs">{project.subtitle}</p>}
-          <p className="mt-2.5 line-clamp-3 text-xs leading-relaxed text-panel-muted sm:mt-3 sm:text-sm">{project.description}</p>
-          {project.tech.length > 0 && (
-            <ul className="mt-3.5 flex flex-wrap gap-1.5 sm:mt-4">
-              {project.tech.slice(0, 5).map((t) => (
-                <li key={t} className="rounded-full border border-panel-border px-2 py-0.5 text-[0.7rem] sm:px-2.5 sm:text-xs">
-                  {t}
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="mt-auto flex flex-wrap gap-2 pt-4 sm:pt-5">
-            <Button variant="hero" size="sm" className="px-3.5 sm:px-4" onClick={onOpen}>
-              View details <ArrowUpRight />
-            </Button>
-            {project.liveUrl && (
-              <Button asChild variant="panel" size="sm" className="px-3.5 sm:px-4">
-                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink /> Live demo
-                </a>
-              </Button>
+      <Reveal
+        from={from}
+        distance={60}
+        delay={(index % 4) * 0.08}
+        className="flex flex-col h-full"
+      >
+        <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-panel-border bg-panel-card text-panel-foreground shadow-soft transition-all duration-300 hover:shadow-elegant hover:border-highlight/50 hover:-translate-y-1">
+          <button type="button" onClick={onOpen} className="relative aspect-[4/3] overflow-hidden cursor-pointer" aria-label={`View details of ${project.title}`}>
+            <ProjectVisual project={project} />
+            <span className="absolute left-3 top-3 rounded-full bg-highlight px-3 py-1 font-display text-sm text-highlight-foreground shadow-xs">
+              {project.number}
+            </span>
+            <span className="absolute right-3 top-3 rounded-full border border-panel-border/80 bg-panel/85 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-panel-foreground backdrop-blur-md shadow-xs">
+              {getProjectCategoryBadge(project)}
+            </span>
+          </button>
+          <div className="flex flex-1 flex-col p-4 sm:p-5">
+            <h3 className="text-xl leading-tight sm:text-2xl">{project.title}</h3>
+            {project.subtitle && <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-wide text-highlight sm:text-xs">{project.subtitle}</p>}
+            <p className="mt-2.5 line-clamp-3 text-xs leading-relaxed text-panel-muted sm:mt-3 sm:text-sm">{project.description}</p>
+            {project.tech.length > 0 && (
+              <ul className="mt-3.5 flex flex-wrap gap-1.5 sm:mt-4">
+                {project.tech.slice(0, 5).map((t) => (
+                  <li key={t} className="rounded-full border border-panel-border px-2 py-0.5 text-[0.7rem] sm:px-2.5 sm:text-xs">
+                    {t}
+                  </li>
+                ))}
+              </ul>
             )}
-            {project.githubUrl && (
-              <Button asChild variant="panel" size="sm" className="px-3.5 sm:px-4">
-                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                  <GithubIcon /> GitHub
-                </a>
+            <div className="mt-auto flex flex-wrap gap-2 pt-4 sm:pt-5">
+              <Button variant="hero" size="sm" className="px-3.5 sm:px-4" onClick={onOpen}>
+                View details <ArrowUpRight />
               </Button>
-            )}
+              {project.liveUrl && (
+                <Button asChild variant="panel" size="sm" className="px-3.5 sm:px-4">
+                  <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink /> Live demo
+                  </a>
+                </Button>
+              )}
+              {project.githubUrl && (
+                <Button asChild variant="panel" size="sm" className="px-3.5 sm:px-4">
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <GithubIcon /> GitHub
+                  </a>
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </Reveal>
     </motion.div>
   );
 }
@@ -141,38 +149,40 @@ export function Projects() {
             description="Curated sample works from Personal, Academic, UI/UX, and Research domains. Select a tab below to explore full categories."
           />
 
-          <div
-            role="tablist"
-            aria-label="Filter projects"
-            className="-mx-1 mb-6 flex gap-2 overflow-x-auto p-1 pb-2.5 sm:mb-8 sm:gap-2.5"
-          >
-            {projectFilters.map((f) => {
-              const isActive = filter === f.id;
-              return (
-                <button
-                  key={f.id}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setFilter(f.id)}
-                  className={cn(
-                    "relative shrink-0 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider transition-colors duration-200 sm:px-4 sm:py-2 sm:text-xs outline-none focus-visible:ring-2 focus-visible:ring-highlight cursor-pointer",
-                    isActive
-                      ? "text-highlight-foreground"
-                      : "text-panel-foreground/80 hover:text-panel-foreground border border-panel-border/70 hover:border-panel-border hover:bg-panel-card/70",
-                  )}
-                >
-                  {isActive && (
-                    <motion.span
-                      layoutId="active-project-filter"
-                      className="absolute inset-0 rounded-full bg-highlight shadow-glow"
-                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    />
-                  )}
-                  <span className="relative z-10">{f.label}</span>
-                </button>
-              );
-            })}
-          </div>
+          <Reveal from="up" delay={0.08} className="mb-6 sm:mb-8">
+            <div
+              role="tablist"
+              aria-label="Filter projects"
+              className="-mx-1 flex gap-2 overflow-x-auto p-1 pb-2.5 sm:gap-2.5"
+            >
+              {projectFilters.map((f) => {
+                const isActive = filter === f.id;
+                return (
+                  <button
+                    key={f.id}
+                    role="tab"
+                    aria-selected={isActive}
+                    onClick={() => setFilter(f.id)}
+                    className={cn(
+                      "relative shrink-0 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider transition-colors duration-200 sm:px-4 sm:py-2 sm:text-xs outline-none focus-visible:ring-2 focus-visible:ring-highlight cursor-pointer",
+                      isActive
+                        ? "text-highlight-foreground"
+                        : "text-panel-foreground/80 hover:text-panel-foreground border border-panel-border/70 hover:border-panel-border hover:bg-panel-card/70",
+                    )}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="active-project-filter"
+                        className="absolute inset-0 rounded-full bg-highlight shadow-glow"
+                        transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                      />
+                    )}
+                    <span className="relative z-10">{f.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </Reveal>
 
           <AnimatePresence>
             {filter === "all" && (
@@ -216,24 +226,26 @@ export function Projects() {
           {list.length === 0 && <p className="text-center text-panel-muted">No projects in this category yet.</p>}
 
           {/* GitHub Repositories Callout */}
-          <div className="mt-10 flex flex-col items-center justify-between gap-5 rounded-2xl border border-panel-border bg-panel-card p-5 text-center sm:mt-12 sm:flex-row sm:p-7 sm:text-left">
-            <div className="space-y-1">
-              <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-highlight sm:text-xs">
-                Source Code &amp; Repositories
-              </span>
-              <h4 className="font-display text-lg uppercase text-panel-foreground sm:text-2xl">
-                Explore All Project Repositories on GitHub
-              </h4>
-              <p className="max-w-2xl text-xs leading-relaxed text-panel-muted sm:text-sm">
-                Source code repositories, architecture details, and active development history for these projects are available directly on my GitHub profile.
-              </p>
+          <Reveal from="up" delay={0.12} className="mt-10 sm:mt-12">
+            <div className="flex flex-col items-center justify-between gap-5 rounded-2xl border border-panel-border bg-panel-card p-5 text-center sm:flex-row sm:p-7 sm:text-left">
+              <div className="space-y-1">
+                <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-highlight sm:text-xs">
+                  Source Code &amp; Repositories
+                </span>
+                <h4 className="font-display text-lg uppercase text-panel-foreground sm:text-2xl">
+                  Explore All Project Repositories on GitHub
+                </h4>
+                <p className="max-w-2xl text-xs leading-relaxed text-panel-muted sm:text-sm">
+                  Source code repositories, architecture details, and active development history for these projects are available directly on my GitHub profile.
+                </p>
+              </div>
+              <Button asChild variant="hero" size="lg" className="shrink-0 font-bold uppercase tracking-wider">
+                <a href={personal.github} target="_blank" rel="noopener noreferrer">
+                  <GithubIcon className="mr-2 h-4 w-4" /> View GitHub Profile
+                </a>
+              </Button>
             </div>
-            <Button asChild variant="hero" size="lg" className="shrink-0 font-bold uppercase tracking-wider">
-              <a href={personal.github} target="_blank" rel="noopener noreferrer">
-                <GithubIcon className="mr-2 h-4 w-4" /> View GitHub Profile
-              </a>
-            </Button>
-          </div>
+          </Reveal>
         </div>
       </div>
 

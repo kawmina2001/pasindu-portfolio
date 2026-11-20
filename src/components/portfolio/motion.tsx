@@ -48,6 +48,7 @@ export function Reveal({
   children,
   from = "up",
   delay = 0,
+  distance,
   className,
   style,
   ...rest
@@ -78,13 +79,23 @@ export function Reveal({
 
   const dirClass = `reveal-${from}`;
 
+  const customDistanceStyle: CSSProperties = distance
+    ? {
+        ...style,
+        ...(from === "left" ? { ["--reveal-x" as string]: `-${distance}px` } : {}),
+        ...(from === "right" ? { ["--reveal-x" as string]: `${distance}px` } : {}),
+        ...(from === "up" ? { ["--reveal-y" as string]: `${distance}px` } : {}),
+        ...(from === "down" ? { ["--reveal-y" as string]: `-${distance}px` } : {}),
+      }
+    : style || {};
+
   return (
     <div
       ref={ref}
       className={cn("reveal-init", dirClass, className)}
       style={{
         transitionDelay: delay ? `${delay * 1000}ms` : "0ms",
-        ...style,
+        ...customDistanceStyle,
       }}
       {...rest}
     >
