@@ -54,15 +54,26 @@ function ProjectVisual({ project, className }: { project: Project; className?: s
   );
 }
 
+function getProjectCategoryBadge(project: Project): string {
+  if (project.categories.includes("research")) return "Research Project";
+  if (project.categories.includes("uiux")) return "UI/UX Design";
+  if (project.categories.includes("academic")) return "Academic Project";
+  if (project.categories.includes("client")) return "Client Project";
+  return "Personal Project";
+}
+
 function ProjectCard({ project, index, onOpen }: { project: Project; index: number; onOpen: () => void }) {
   const from = index % 2 === 0 ? "left" : "right";
   return (
-    <Reveal from={from} delay={(index % 3) * 0.06} className={cn("flex flex-col", index % 3 === 1 && "lg:mt-10")}>
+    <Reveal from={from} delay={(index % 4) * 0.05} className="flex flex-col">
       <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-panel-border bg-panel-card text-panel-foreground shadow-soft transition-shadow duration-300 hover:shadow-elegant">
         <button type="button" onClick={onOpen} className="relative aspect-[4/3] overflow-hidden" aria-label={`View details of ${project.title}`}>
           <ProjectVisual project={project} />
-          <span className="absolute left-3 top-3 rounded-full bg-highlight px-3 py-1 font-display text-sm text-highlight-foreground">
+          <span className="absolute left-3 top-3 rounded-full bg-highlight px-3 py-1 font-display text-sm text-highlight-foreground shadow-xs">
             {project.number}
+          </span>
+          <span className="absolute right-3 top-3 rounded-full border border-panel-border/80 bg-panel/85 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-wider text-panel-foreground backdrop-blur-md shadow-xs">
+            {getProjectCategoryBadge(project)}
           </span>
         </button>
         <div className="flex flex-1 flex-col p-4 sm:p-5">
@@ -116,10 +127,10 @@ export function Projects() {
             tone="panel"
             eyebrow="Portfolio"
             title="My Recent Works"
-            description="A selection of client, personal, academic and research projects. Source codes are available on GitHub."
+            description="Curated sample works from Personal, Academic, UI/UX, and Research domains. Select a tab below to explore full categories."
           />
 
-          <div role="tablist" aria-label="Filter projects" className="-mx-1 mb-8 flex gap-1.5 overflow-x-auto px-1 pb-2 sm:mb-10 sm:gap-2">
+          <div role="tablist" aria-label="Filter projects" className="-mx-1 mb-6 flex gap-1.5 overflow-x-auto px-1 pb-2 sm:mb-8 sm:gap-2">
             {projectFilters.map((f) => (
               <button
                 key={f.id}
@@ -138,7 +149,26 @@ export function Projects() {
             ))}
           </div>
 
-          <motion.div layout className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          {filter === "all" && (
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-panel-border/60 bg-panel-card/50 px-4 py-2.5 text-xs text-panel-muted backdrop-blur-xs">
+              <span className="font-semibold text-panel-foreground">
+                Flagship Samples: <span className="font-normal text-panel-muted">1 curated project each from Personal, Academic, UI/UX, and Research</span>
+              </span>
+              <span className="text-[0.68rem] uppercase tracking-wider text-highlight font-bold">
+                Select tabs above for full archives →
+              </span>
+            </div>
+          )}
+
+          <motion.div
+            layout
+            className={cn(
+              "grid gap-5 sm:gap-6",
+              filter === "all"
+                ? "sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4"
+                : "sm:grid-cols-2 lg:grid-cols-3",
+            )}
+          >
             <AnimatePresence mode="popLayout">
               {list.map((p, i) => (
                 <ProjectCard key={p.id} project={p} index={i} onOpen={() => setSelected(p)} />

@@ -32,6 +32,11 @@ describe("portfolio rules", () => {
     expect(filterProjects(projects, "research").map((p) => p.id)).toEqual(["snake-identification"]);
   });
 
+  it("all projects filter returns exactly one curated flagship sample from each core category", () => {
+    const all = filterProjects(projects, "all");
+    expect(all.map((p) => p.id)).toEqual(["novastore", "agrigo", "eduflex-uiux", "snake-identification"]);
+  });
+
   it("contact form rejects an invalid email", () => {
     const r = contactSchema.safeParse({ name: "Amal", email: "nope", projectType: "Other", message: "Hello there, a project" });
     expect(r.success).toBe(false);

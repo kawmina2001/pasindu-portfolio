@@ -247,10 +247,20 @@ export const projects: Project[] = [
   },
 ];
 
+// Curated sample projects displayed in the "All Projects" overview — one flagship project from each core category
+export const sampleProjectIds = [
+  "novastore", // Personal Projects sample
+  "agrigo", // Academic Projects sample
+  "eduflex-uiux", // UI/UX Designs sample
+  "snake-identification", // Research Projects sample
+];
+
 export const filterProjects = (list: Project[], filter: "all" | ProjectCategory) => {
   if (filter === "all") {
-    // Only display special featured projects (including UI/UX) in the main All Projects overview
-    return list.filter((p) => p.featured === true);
+    // Show one curated sample project from each category: Personal, Academic, UI/UX, and Research
+    return sampleProjectIds
+      .map((id) => list.find((p) => p.id === id))
+      .filter((p): p is Project => p !== undefined);
   }
   return list.filter((p) => p.categories.includes(filter));
 };
