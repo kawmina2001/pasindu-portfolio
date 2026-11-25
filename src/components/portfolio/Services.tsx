@@ -1,142 +1,88 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Sparkles, Info, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import devlogicLogo from "@/assets/devlogic-logo.png";
-import { agencyServicesIntro, serviceCategories, services, type ServiceCategory, type Service } from "@/data/services";
+import {
+  agencyServicesIntro,
+  serviceCategories,
+  services,
+  type ServiceCategory,
+  type Service,
+} from "@/data/services";
 import { agencyWhatsappLink } from "@/data/personal";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { WhatsappIcon } from "./icons";
 import { Reveal } from "./motion";
 import { SectionHeading } from "./SectionHeading";
 
+function getCategoryLabel(category: string): string {
+  switch (category) {
+    case "apps":
+      return "Web & Mobile App";
+    case "systems":
+      return "Business System";
+    case "websites":
+      return "Website & Store";
+    case "design-support":
+      return "UI/UX & Support";
+    default:
+      return "Digital Solution";
+  }
+}
+
 /* ─────────────────────────────────────────────
-   Service chip — icon + title + hover popup
+   Service chip — icon + title + Details button
 ───────────────────────────────────────────── */
-function ServiceChip({ service, index }: { service: Service; index: number }) {
-  const [open, setOpen] = useState(false);
-  const popupRef = useRef<HTMLDivElement>(null);
-  const chipRef = useRef<HTMLDivElement>(null);
+function ServiceChip({
+  service,
+  onOpen,
+}: {
+  service: Service;
+  onOpen: () => void;
+}) {
   const Icon = service.icon;
 
-  // Close popup on outside click
-  useEffect(() => {
-    if (!open) return;
-    function handler(e: MouseEvent) {
-      if (
-        popupRef.current &&
-        !popupRef.current.contains(e.target as Node) &&
-        chipRef.current &&
-        !chipRef.current.contains(e.target as Node)
-      ) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [open]);
-
   return (
-    <div className="relative">
-      {/* ── The chip itself ── */}
-      <div
-        ref={chipRef}
-        role="button"
-        tabIndex={0}
-        aria-expanded={open}
-        aria-haspopup="dialog"
-        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setOpen((v) => !v)}
-        className={cn(
-          "group flex cursor-pointer items-center gap-2.5 rounded-2xl border px-4 py-3 transition-all duration-200 select-none",
-          "outline-none focus-visible:ring-2 focus-visible:ring-primary",
-          open
-            ? "border-primary/70 bg-primary/8 shadow-sm"
-            : "border-border/80 bg-card hover:border-primary/50 hover:bg-primary/5 hover:shadow-xs",
-        )}
-        onClick={() => setOpen((v) => !v)}
-      >
+    <div
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onOpen()}
+      onClick={onOpen}
+      className={cn(
+        "group relative flex cursor-pointer items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 transition-all duration-200 select-none",
+        "border-border/80 bg-card hover:border-primary/60 hover:bg-primary/5 hover:shadow-soft hover:-translate-y-0.5",
+        "outline-none focus-visible:ring-2 focus-visible:ring-primary",
+      )}
+    >
+      <div className="flex items-center gap-3 min-w-0">
         {/* Icon */}
-        <span
-          className={cn(
-            "grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-all duration-200",
-            open
-              ? "bg-primary text-primary-foreground scale-105"
-              : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105",
-          )}
-        >
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary transition-all duration-200 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105 shadow-xs">
           <Icon className="h-4 w-4" />
         </span>
 
-        {/* Title */}
-        <span
-          className={cn(
-            "flex-1 text-sm font-semibold leading-snug transition-colors",
-            open ? "text-foreground" : "text-foreground/90 group-hover:text-foreground",
-          )}
-        >
-          {service.title}
-        </span>
-
-        {/* Info toggle indicator */}
-        <span
-          className={cn(
-            "shrink-0 rounded-full p-1 transition-all duration-200",
-            open
-              ? "bg-primary text-primary-foreground rotate-0"
-              : "bg-muted text-muted-foreground group-hover:bg-primary/15 group-hover:text-primary",
-          )}
-        >
-          {open ? <ChevronUp className="h-3.5 w-3.5" /> : <Info className="h-3.5 w-3.5" />}
-        </span>
+        {/* Title & category badge */}
+        <div className="min-w-0">
+          <span className="block text-sm font-semibold leading-snug text-foreground transition-colors group-hover:text-primary line-clamp-1">
+            {service.title}
+          </span>
+          <span className="text-[0.65rem] font-bold uppercase tracking-wider text-muted-foreground/80">
+            {getCategoryLabel(service.category)}
+          </span>
+        </div>
       </div>
 
-      {/* ── Popup description ── */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            ref={popupRef}
-            role="dialog"
-            aria-label={`Details for ${service.title}`}
-            initial={{ opacity: 0, y: -6, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -6, scale: 0.97 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-0 right-0 z-50 mt-1.5 overflow-hidden rounded-2xl border border-primary/25 bg-card shadow-elegant"
-            style={{ top: "100%" }}
-          >
-            <div className="p-4 sm:p-5">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
-                  <Icon className="h-4 w-4" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">
-                    {service.title}
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {service.description}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2 border-t border-border/50 pt-3">
-                <a
-                  href="#contact"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground transition-all hover:bg-primary/90 hover:scale-105"
-                >
-                  Discuss this service <ArrowUpRight className="h-3 w-3" />
-                </a>
-                <a
-                  href={agencyWhatsappLink(`Hi DevLogic Labs, I'm interested in: ${service.title}`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-xs font-bold text-foreground transition-all hover:border-primary/60 hover:text-primary hover:bg-primary/5"
-                >
-                  WhatsApp DevLogic Labs →
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Details action button */}
+      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-border/80 bg-muted/40 px-2.5 py-1 text-[0.68rem] font-bold text-muted-foreground transition-all duration-200 group-hover:border-primary/50 group-hover:bg-primary group-hover:text-primary-foreground shadow-xs">
+        <span>Details</span>
+        <ArrowUpRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </span>
     </div>
   );
 }
@@ -146,6 +92,7 @@ function ServiceChip({ service, index }: { service: Service; index: number }) {
 ───────────────────────────────────────────── */
 export function Services() {
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("all");
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   const filtered =
     activeCategory === "all" ? services : services.filter((s) => s.category === activeCategory);
@@ -252,11 +199,10 @@ export function Services() {
         </div>
       </Reveal>
 
-      {/* ── Service chips grid ── */}
+      {/* ── Service chips grid with smooth dual-sided scroll reveal ── */}
       <motion.div layout className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
           {filtered.map((s, i) => {
-            // Alternate: left → right → left across the 3-column grid
             const col = i % 3;
             const from = col === 0 ? "left" : col === 2 ? "right" : "up";
             return (
@@ -268,18 +214,78 @@ export function Services() {
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               >
-                <Reveal
-                  from={from}
-                  delay={(i % 3) * 0.09}
-                  className="h-full"
-                >
-                  <ServiceChip service={s} index={i} />
+                <Reveal from={from} delay={(i % 3) * 0.09} className="h-full">
+                  <ServiceChip service={s} onOpen={() => setSelectedService(s)} />
                 </Reveal>
               </motion.div>
             );
           })}
         </AnimatePresence>
       </motion.div>
+
+      {/* ── Service Details Modal Dialog (Portaled to body - zero background text overlapping) ── */}
+      <Dialog open={!!selectedService} onOpenChange={(open) => !open && setSelectedService(null)}>
+        <DialogContent className="w-[92vw] max-w-lg rounded-3xl border border-primary/30 bg-card p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+          {selectedService && (
+            <div>
+              <DialogHeader className="text-left">
+                <div className="flex items-center justify-between gap-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="grid h-14 w-14 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-md">
+                      <selectedService.icon className="h-7 w-7" />
+                    </span>
+                    <div>
+                      <span className="inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[0.68rem] font-extrabold uppercase tracking-wider text-primary border border-primary/25">
+                        {getCategoryLabel(selectedService.category)}
+                      </span>
+                      <p className="text-[0.72rem] font-mono text-muted-foreground mt-1">
+                        Service #{String(services.findIndex((s) => s.id === selectedService.id) + 1).padStart(2, "0")}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <DialogTitle className="text-xl sm:text-2xl font-display uppercase tracking-tight text-foreground leading-tight">
+                  {selectedService.title}
+                </DialogTitle>
+
+                <DialogDescription className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  {selectedService.description}
+                </DialogDescription>
+              </DialogHeader>
+
+              {/* DevLogic Labs standard card */}
+              <div className="mt-6 rounded-2xl border border-border/80 bg-muted/40 p-4">
+                <p className="text-xs font-bold text-foreground mb-1 flex items-center gap-1.5">
+                  <Sparkles className="h-3.5 w-3.5 text-primary" /> DevLogic Labs Production Standard
+                </p>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Every solution is custom-architected with responsive design, secure APIs, production-ready code, and dedicated maintenance support.
+                </p>
+              </div>
+
+              {/* Action buttons */}
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <a
+                  href={agencyWhatsappLink(`Hi DevLogic Labs, I'd like to consult on: ${selectedService.title}`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:scale-102"
+                >
+                  <WhatsappIcon className="h-4 w-4" /> Inquire on WhatsApp
+                </a>
+                <a
+                  href="#contact"
+                  onClick={() => setSelectedService(null)}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-xs font-bold uppercase tracking-wider text-foreground transition-all hover:border-primary/60 hover:text-primary"
+                >
+                  Discuss Project <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* ── Footer CTA ── */}
       <Reveal from="up" delay={0.1} className="mt-10 sm:mt-14">
