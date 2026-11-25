@@ -255,18 +255,30 @@ export function Services() {
       {/* ── Service chips grid ── */}
       <motion.div layout className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
-          {filtered.map((s, i) => (
-            <motion.div
-              layout
-              key={s.id}
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1], delay: i * 0.03 }}
-            >
-              <ServiceChip service={s} index={i} />
-            </motion.div>
-          ))}
+          {filtered.map((s, i) => {
+            // Alternate: left → right → left across the 3-column grid
+            const col = i % 3;
+            const from = col === 0 ? "left" : col === 2 ? "right" : "up";
+            return (
+              <motion.div
+                layout
+                key={s.id}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Reveal
+                  from={from}
+                  distance={40}
+                  delay={(i % 3) * 0.07}
+                  className="h-full"
+                >
+                  <ServiceChip service={s} index={i} />
+                </Reveal>
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </motion.div>
 
