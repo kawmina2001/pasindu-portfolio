@@ -42,8 +42,8 @@ describe("portfolio rules", () => {
     expect(r.success).toBe(false);
   });
 
-  it("contact form addresses the email to devlogilabs.mail@gmail.com", () => {
+  it("contact form addresses the email to devlogiclabs.mail@gmail.com", () => {
     const url = buildMailto({ name: "Amal", email: "a@b.com", projectType: "Other", message: "Hello there" });
-    expect(url.startsWith("mailto:devlogilabs.mail@gmail.com?")).toBe(true);
+    expect(url.startsWith("mailto:devlogiclabs.mail@gmail.com?")).toBe(true);
   });
 });
