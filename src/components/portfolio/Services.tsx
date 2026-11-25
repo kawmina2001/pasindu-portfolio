@@ -1,45 +1,154 @@
-import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Sparkles, Zap } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Sparkles, Info, ChevronDown, ChevronUp } from "lucide-react";
 import devlogicLogo from "@/assets/devlogic-logo.png";
-import { agencyServicesIntro, serviceCategories, services, type ServiceCategory } from "@/data/services";
+import { agencyServicesIntro, serviceCategories, services, type ServiceCategory, type Service } from "@/data/services";
 import { agencyWhatsappLink } from "@/data/personal";
 import { cn } from "@/lib/utils";
-import { Reveal, sideFor } from "./motion";
+import { Reveal } from "./motion";
 import { SectionHeading } from "./SectionHeading";
 
-function getCategoryLabel(category: string): string {
-  switch (category) {
-    case "apps":
-      return "Web & Mobile App";
-    case "systems":
-      return "Business System";
-    case "websites":
-      return "Website & Store";
-    case "design-support":
-      return "UI/UX & Support";
-    default:
-      return "Service";
-  }
+/* ─────────────────────────────────────────────
+   Service chip — icon + title + hover popup
+───────────────────────────────────────────── */
+function ServiceChip({ service, index }: { service: Service; index: number }) {
+  const [open, setOpen] = useState(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const chipRef = useRef<HTMLDivElement>(null);
+  const Icon = service.icon;
+
+  // Close popup on outside click
+  useEffect(() => {
+    if (!open) return;
+    function handler(e: MouseEvent) {
+      if (
+        popupRef.current &&
+        !popupRef.current.contains(e.target as Node) &&
+        chipRef.current &&
+        !chipRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  return (
+    <div className="relative">
+      {/* ── The chip itself ── */}
+      <div
+        ref={chipRef}
+        role="button"
+        tabIndex={0}
+        aria-expanded={open}
+        aria-haspopup="dialog"
+        onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setOpen((v) => !v)}
+        className={cn(
+          "group flex cursor-pointer items-center gap-2.5 rounded-2xl border px-4 py-3 transition-all duration-200 select-none",
+          "outline-none focus-visible:ring-2 focus-visible:ring-primary",
+          open
+            ? "border-primary/70 bg-primary/8 shadow-sm"
+            : "border-border/80 bg-card hover:border-primary/50 hover:bg-primary/5 hover:shadow-xs",
+        )}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {/* Icon */}
+        <span
+          className={cn(
+            "grid h-9 w-9 shrink-0 place-items-center rounded-xl transition-all duration-200",
+            open
+              ? "bg-primary text-primary-foreground scale-105"
+              : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-105",
+          )}
+        >
+          <Icon className="h-4 w-4" />
+        </span>
+
+        {/* Title */}
+        <span
+          className={cn(
+            "flex-1 text-sm font-semibold leading-snug transition-colors",
+            open ? "text-foreground" : "text-foreground/90 group-hover:text-foreground",
+          )}
+        >
+          {service.title}
+        </span>
+
+        {/* Info toggle indicator */}
+        <span
+          className={cn(
+            "shrink-0 rounded-full p-1 transition-all duration-200",
+            open
+              ? "bg-primary text-primary-foreground rotate-0"
+              : "bg-muted text-muted-foreground group-hover:bg-primary/15 group-hover:text-primary",
+          )}
+        >
+          {open ? <ChevronUp className="h-3.5 w-3.5" /> : <Info className="h-3.5 w-3.5" />}
+        </span>
+      </div>
+
+      {/* ── Popup description ── */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            ref={popupRef}
+            role="dialog"
+            aria-label={`Details for ${service.title}`}
+            initial={{ opacity: 0, y: -6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.97 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute left-0 right-0 z-50 mt-1.5 overflow-hidden rounded-2xl border border-primary/25 bg-card shadow-elegant"
+            style={{ top: "100%" }}
+          >
+            <div className="p-4 sm:p-5">
+              <div className="flex items-start gap-3">
+                <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
+                  <Icon className="h-4 w-4" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">
+                    {service.title}
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-2 border-t border-border/50 pt-3">
+                <a
+                  href="#contact"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary-foreground transition-all hover:bg-primary/90 hover:scale-105"
+                >
+                  Discuss this service <ArrowUpRight className="h-3 w-3" />
+                </a>
+                <a
+                  href={agencyWhatsappLink(`Hi DevLogic Labs, I'm interested in: ${service.title}`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-1.5 text-xs font-bold text-foreground transition-all hover:border-primary/60 hover:text-primary hover:bg-primary/5"
+                >
+                  WhatsApp DevLogic Labs →
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }
 
+/* ─────────────────────────────────────────────
+   Main Services section
+───────────────────────────────────────────── */
 export function Services() {
   const [activeCategory, setActiveCategory] = useState<ServiceCategory>("all");
-  const reduce = useReducedMotion();
 
-  const filteredServices =
+  const filtered =
     activeCategory === "all" ? services : services.filter((s) => s.category === activeCategory);
-
-  const handleQuickPillClick = (serviceId: string, category: ServiceCategory) => {
-    setActiveCategory(category);
-    // Smoothly scroll to the target card after filter settles
-    setTimeout(() => {
-      const el = document.getElementById(`service-${serviceId}`);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 100);
-  };
 
   return (
     <section id="services" className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-24 lg:py-28">
@@ -53,8 +162,8 @@ export function Services() {
         description="All custom digital solutions and client projects are professionally engineered and delivered through my agency, DevLogic Labs."
       />
 
-      {/* DevLogic Labs Agency Intro Banner */}
-      <Reveal from="up" className="mb-6 sm:mb-8">
+      {/* ── Agency banner ── */}
+      <Reveal from="up" className="mb-8 sm:mb-10">
         <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-card via-card to-accent/40 p-5 shadow-soft transition-all duration-300 hover:border-primary/60 hover:shadow-glow sm:p-7">
           <div aria-hidden className="grid-lines absolute inset-0 opacity-15 pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
@@ -95,59 +204,8 @@ export function Services() {
         </div>
       </Reveal>
 
-      {/* Quick Services Directory — All 18 Services at a glance (No long scrolling required) */}
-      <Reveal from="up" delay={0.05} className="mb-8">
-        <div className="rounded-3xl border border-border/80 bg-card/60 backdrop-blur-md p-5 sm:p-6 shadow-soft">
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 place-items-center rounded-xl bg-primary/15 text-primary">
-                <Zap className="h-4 w-4" />
-              </span>
-              <div>
-                <h4 className="font-display text-sm uppercase tracking-wide text-foreground sm:text-base">
-                  Quick Services Directory
-                </h4>
-                <p className="text-[0.72rem] text-muted-foreground sm:text-xs">
-                  All 18 custom solutions at a glance — click any service to view details immediately
-                </p>
-              </div>
-            </div>
-            <span className="rounded-full bg-primary/10 px-3 py-1 text-[0.68rem] font-bold uppercase tracking-wider text-primary border border-primary/25">
-              18 Solutions Available
-            </span>
-          </div>
-
-          <div className="flex flex-wrap gap-1.5 sm:gap-2">
-            {services.map((s, idx) => {
-              const Icon = s.icon;
-              const isSelected = activeCategory === "all" || activeCategory === s.category;
-              return (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => handleQuickPillClick(s.id, s.category)}
-                  className={cn(
-                    "group inline-flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-medium transition-all duration-200 cursor-pointer text-left outline-none focus-visible:ring-2 focus-visible:ring-primary",
-                    isSelected
-                      ? "border-border/90 bg-card text-foreground hover:border-primary/60 hover:bg-primary/5 hover:shadow-xs"
-                      : "border-transparent bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground",
-                  )}
-                  title={`View details for ${s.title}`}
-                >
-                  <span className="text-[0.65rem] font-bold text-muted-foreground/60 font-mono">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <Icon className="h-3.5 w-3.5 shrink-0 text-primary transition-transform group-hover:scale-115" />
-                  <span className="text-[0.75rem] font-semibold">{s.title}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Category Tabs with Animated Sliding Pill */}
-      <Reveal from="up" delay={0.08} className="mb-6 sm:mb-8">
+      {/* ── Category Tabs ── */}
+      <Reveal from="up" delay={0.06} className="mb-6 sm:mb-8">
         <div
           role="tablist"
           aria-label="Filter services by category"
@@ -173,7 +231,7 @@ export function Services() {
                 {isActive && (
                   <motion.span
                     layoutId="active-services-category"
-                    className="absolute inset-0 rounded-full bg-primary shadow-glow"
+                    className="absolute inset-0 rounded-full bg-primary"
                     transition={{ type: "spring", stiffness: 420, damping: 32 }}
                   />
                 )}
@@ -181,10 +239,8 @@ export function Services() {
                   {cat.label}
                   <span
                     className={cn(
-                      "rounded-full px-1.5 py-0.2 text-[0.62rem] font-extrabold",
-                      isActive
-                        ? "bg-primary-foreground/25 text-primary-foreground"
-                        : "bg-muted text-muted-foreground",
+                      "rounded-full px-1.5 py-0.5 text-[0.6rem] font-extrabold leading-none",
+                      isActive ? "bg-white/25 text-primary-foreground" : "bg-muted text-muted-foreground",
                     )}
                   >
                     {count}
@@ -196,73 +252,51 @@ export function Services() {
         </div>
       </Reveal>
 
-      {/* Filtered Detailed Services Grid */}
-      <motion.div layout className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+      {/* ── Service chips grid ── */}
+      <motion.div layout className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
         <AnimatePresence mode="popLayout">
-          {filteredServices.map((s, i) => {
-            const Icon = s.icon;
-            const overallNumber = services.findIndex((item) => item.id === s.id) + 1;
-            return (
-              <motion.div
-                layout
-                key={s.id}
-                initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                id={`service-${s.id}`}
-                className="flex flex-col h-full scroll-mt-28"
-              >
-                <Reveal
-                  key={s.id}
-                  from={sideFor(i)}
-                  delay={(i % 3) * 0.06}
-                  distance={48}
-                  className="flex flex-col h-full"
-                >
-                  <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary hover:shadow-elegant sm:p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105 sm:h-14 sm:w-14">
-                        <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                      </span>
-                      <div className="flex flex-col items-end gap-1">
-                        <span className="font-display text-2xl text-muted-foreground/30 sm:text-3xl">
-                          {String(overallNumber).padStart(2, "0")}
-                        </span>
-                        <span className="rounded-full bg-muted/60 px-2 py-0.5 text-[0.62rem] font-bold uppercase tracking-wider text-muted-foreground">
-                          {getCategoryLabel(s.category)}
-                        </span>
-                      </div>
-                    </div>
-
-                    <h3 className="mt-4 text-lg leading-tight text-foreground sm:mt-5 sm:text-2xl">{s.title}</h3>
-                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground sm:mt-2.5 sm:text-sm">
-                      {s.description}
-                    </p>
-
-                    <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-5 sm:pt-6 border-t border-border/50">
-                      <a
-                        href="#contact"
-                        className="inline-flex items-center gap-1.5 rounded-full bg-highlight px-3.5 py-1.5 text-xs font-bold uppercase text-highlight-foreground transition-all hover:scale-105 hover:bg-highlight/90 shadow-xs"
-                      >
-                        Discuss <ArrowUpRight className="h-3.5 w-3.5" />
-                      </a>
-                      <a
-                        href={agencyWhatsappLink(`Hi DevLogic Labs, I'd like to consult on ${s.title}.`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[0.72rem] font-bold text-primary hover:text-primary/80 transition-colors"
-                      >
-                        Inquire on WhatsApp →
-                      </a>
-                    </div>
-                  </article>
-                </Reveal>
-              </motion.div>
-            );
-          })}
+          {filtered.map((s, i) => (
+            <motion.div
+              layout
+              key={s.id}
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1], delay: i * 0.03 }}
+            >
+              <ServiceChip service={s} index={i} />
+            </motion.div>
+          ))}
         </AnimatePresence>
       </motion.div>
+
+      {/* ── Footer CTA ── */}
+      <Reveal from="up" delay={0.1} className="mt-10 sm:mt-14">
+        <div className="flex flex-col items-center gap-4 rounded-3xl border border-primary/20 bg-primary/5 py-8 px-5 text-center sm:py-10">
+          <p className="text-[0.72rem] font-bold uppercase tracking-widest text-primary sm:text-xs">
+            Not sure which service fits your project?
+          </p>
+          <h4 className="font-display text-2xl uppercase leading-tight text-foreground sm:text-3xl">
+            Let's find the right solution together
+          </h4>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:scale-105"
+            >
+              Start a Conversation <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <a
+              href={agencyWhatsappLink("Hi DevLogic Labs, I need help choosing the right service for my project.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-primary transition-all hover:bg-primary/10 hover:border-primary/70"
+            >
+              WhatsApp DevLogic Labs
+            </a>
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }
