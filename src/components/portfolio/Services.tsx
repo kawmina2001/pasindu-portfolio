@@ -270,8 +270,7 @@ export function Services() {
               >
                 <Reveal
                   from={from}
-                  distance={40}
-                  delay={(i % 3) * 0.07}
+                  delay={(i % 3) * 0.09}
                   className="h-full"
                 >
                   <ServiceChip service={s} index={i} />
