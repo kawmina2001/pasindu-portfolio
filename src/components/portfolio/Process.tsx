@@ -10,6 +10,8 @@ import {
   Layers,
   ShieldCheck,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
   type LucideIcon,
 } from "lucide-react";
 import { process } from "@/data/personal";
@@ -60,7 +62,7 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
   if (stepIndex === 0) {
     // Phase 1: Requirements Radar & Audio/Signal Wave
     return (
-      <div className="relative mt-4 flex h-24 w-full items-center justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/80 px-4 py-2">
+      <div className="relative mt-4 flex h-20 sm:h-24 w-full items-center justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/80 px-3 sm:px-4 py-2">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1.5 text-[0.7rem] font-bold text-primary">
             <span className="relative flex h-2 w-2">
@@ -72,7 +74,7 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
           <span className="text-[0.65rem] text-muted-foreground">Mapping scope & timeline</span>
         </div>
         {/* Animated Audio/Frequency Bars */}
-        <div className="flex items-end gap-1 h-10">
+        <div className="flex items-end gap-1 h-8 sm:h-10">
           {[40, 75, 55, 90, 60, 85, 45, 100, 65, 80].map((h, i) => (
             <motion.div
               key={i}
@@ -102,7 +104,7 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
   if (stepIndex === 1) {
     // Phase 2: Interactive Figma/Blueprint Wireframe Grid
     return (
-      <div className="relative mt-4 flex h-24 w-full flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/80 p-2.5">
+      <div className="relative mt-4 flex h-20 sm:h-24 w-full flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/80 p-2 sm:p-2.5">
         <div className="flex items-center justify-between text-[0.65rem] font-medium text-muted-foreground">
           <span className="flex items-center gap-1 text-primary">
             <Layers className="h-3 w-3" /> UI Architecture
@@ -111,15 +113,15 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
         </div>
         {/* Mini Wireframe Blueprint Blocks */}
         <div className="grid grid-cols-3 gap-1.5">
-          <div className="col-span-2 h-5 rounded-md border border-dashed border-primary/40 bg-primary/10 flex items-center px-1.5">
+          <div className="col-span-2 h-4 sm:h-5 rounded-md border border-dashed border-primary/40 bg-primary/10 flex items-center px-1.5">
             <div className="h-1.5 w-12 rounded bg-primary/40" />
           </div>
-          <div className="h-5 rounded-md border border-dashed border-border bg-card flex items-center justify-center">
+          <div className="h-4 sm:h-5 rounded-md border border-dashed border-border bg-card flex items-center justify-center">
             <span className="h-2 w-2 rounded-full bg-highlight" />
           </div>
-          <div className="h-5 rounded-md border border-dashed border-border bg-card" />
-          <div className="h-5 rounded-md border border-dashed border-border bg-card" />
-          <div className="h-5 rounded-md border border-dashed border-primary/40 bg-primary/10 flex items-center justify-center">
+          <div className="h-4 sm:h-5 rounded-md border border-dashed border-border bg-card" />
+          <div className="h-4 sm:h-5 rounded-md border border-dashed border-border bg-card" />
+          <div className="h-4 sm:h-5 rounded-md border border-dashed border-primary/40 bg-primary/10 flex items-center justify-center">
             <Sparkles className="h-2.5 w-2.5 text-primary" />
           </div>
         </div>
@@ -130,7 +132,7 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
   if (stepIndex === 2) {
     // Phase 3: Live Code Compiler & Test Suite Terminal
     return (
-      <div className="relative mt-4 flex h-24 w-full flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/90 p-2 font-mono text-[0.65rem]">
+      <div className="relative mt-4 flex h-20 sm:h-24 w-full flex-col justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/90 p-2 font-mono text-[0.65rem]">
         <div className="flex items-center justify-between border-b border-border/60 pb-1 text-muted-foreground">
           <div className="flex items-center gap-1">
             <Terminal className="h-3 w-3 text-primary" />
@@ -166,7 +168,7 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
 
   // Phase 4: Production Radar & 24/7 Global Uptime
   return (
-    <div className="relative mt-4 flex h-24 w-full items-center justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/80 px-3 py-2">
+    <div className="relative mt-4 flex h-20 sm:h-24 w-full items-center justify-between overflow-hidden rounded-2xl border border-primary/20 bg-background/80 px-3 py-2">
       <div className="flex flex-col gap-1">
         <span className="flex items-center gap-1 text-[0.7rem] font-bold text-emerald-500">
           <ShieldCheck className="h-3.5 w-3.5" /> 99.99% Uptime
@@ -177,7 +179,7 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
         </span>
       </div>
       {/* Animated Radar Pulse Rings */}
-      <div className="relative flex h-14 w-14 items-center justify-center">
+      <div className="relative flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center">
         {!reduce && (
           <>
             <motion.div
@@ -192,8 +194,8 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
             />
           </>
         )}
-        <div className="grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow">
-          <Rocket className="h-4 w-4" />
+        <div className="grid h-7 w-7 sm:h-8 sm:w-8 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow">
+          <Rocket className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         </div>
       </div>
     </div>
@@ -203,7 +205,7 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
 export function Process() {
   const [activeStep, setActiveStep] = useState(0);
 
-  // Auto-cycle through the stages every 4 seconds when idle
+  // Auto-cycle through the stages every 4.5 seconds when idle
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % process.length);
@@ -220,22 +222,22 @@ export function Process() {
       />
 
       {/* ── Interactive Stage Switcher Bar ── */}
-      <Reveal from="up" className="mt-8 flex justify-center">
-        <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-2xl border border-border/80 bg-card p-1.5 shadow-soft sm:rounded-full">
+      <Reveal from="up" className="mt-6 sm:mt-8 flex justify-center">
+        <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-2xl border border-border/80 bg-card p-1 sm:p-1.5 shadow-soft sm:rounded-full">
           {process.map((p, idx) => (
             <button
               key={`tab-${p.step}`}
               type="button"
               onClick={() => setActiveStep(idx)}
               className={cn(
-                "relative flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-semibold transition-all duration-300 sm:rounded-full sm:px-4 sm:py-2 sm:text-sm",
+                "relative flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-xs font-semibold transition-all duration-300 sm:rounded-full sm:px-4 sm:py-2 sm:text-sm cursor-pointer",
                 activeStep === idx
                   ? "bg-primary text-primary-foreground shadow-glow"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground",
               )}
             >
-              <span className="font-mono text-[0.7rem] opacity-75">{p.step}</span>
-              <span>{p.title}</span>
+              <span className="font-mono text-[0.65rem] sm:text-[0.7rem] opacity-75">{p.step}</span>
+              <span className="text-[0.75rem] sm:text-sm">{p.title}</span>
               {activeStep === idx && (
                 <motion.span
                   layoutId="active-process-indicator"
@@ -248,8 +250,116 @@ export function Process() {
         </div>
       </Reveal>
 
-      {/* ── 4 Process Phase Cards with Dynamic Micro-Simulators ── */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+      {/* ── Mobile/Tablet: Single Compact Stage Viewer with Carousel Controls (lg:hidden) ── */}
+      <div className="mt-6 lg:hidden">
+        <AnimatePresence mode="wait">
+          {(() => {
+            const p = process[activeStep] ?? process[0]!;
+            const Icon = icons[activeStep] ?? Rocket;
+            const meta = stepMeta[activeStep] ?? stepMeta[0]!;
+
+            return (
+              <motion.div
+                key={`mobile-step-${activeStep}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+              >
+                <article className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-primary/60 bg-card p-4 sm:p-6 shadow-soft ring-2 ring-primary/20">
+                  {/* Dynamic Ambient Glow Gradient */}
+                  <div
+                    aria-hidden
+                    className={cn(
+                      "pointer-events-none absolute inset-x-0 -top-px h-[3px] bg-gradient-to-r opacity-100",
+                      meta.accent,
+                    )}
+                  />
+
+                  <div>
+                    {/* Top Header: Step Number, Badge & Icon */}
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <span className="font-display text-4xl font-extrabold text-primary sm:text-5xl">
+                          {p.step}
+                        </span>
+                        <div className="mt-0.5">
+                          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary">
+                            {meta.tag}
+                          </span>
+                        </div>
+                      </div>
+                      <span className="grid h-10 w-10 sm:h-11 sm:w-11 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-glow">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                    </div>
+
+                    {/* Title & Description */}
+                    <h3 className="mt-3 text-lg sm:text-xl font-bold text-foreground">
+                      {p.title}
+                    </h3>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                      {p.text}
+                    </p>
+
+                    {/* Deliverables Checklist (Compact on mobile) */}
+                    <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-1 border-t border-border/50 pt-2.5 text-[0.72rem] text-muted-foreground sm:text-xs">
+                      {meta.deliverables.map((item) => (
+                        <li key={item} className="flex items-center gap-1.5">
+                          <CheckCircle2 className="h-3 w-3 shrink-0 text-primary" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* ── Unique Interactive Animated Graphic for this Phase ── */}
+                  <ProcessVisualGraphic stepIndex={activeStep} />
+
+                  {/* Bottom Carousel Navigation Controls */}
+                  <div className="mt-4 flex items-center justify-between border-t border-border/50 pt-3">
+                    <button
+                      type="button"
+                      onClick={() => setActiveStep((prev) => (prev > 0 ? prev - 1 : process.length - 1))}
+                      className="flex items-center gap-1 rounded-xl border border-border bg-muted/60 px-2.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-muted active:scale-95 cursor-pointer"
+                    >
+                      <ChevronLeft className="h-3.5 w-3.5" /> Prev
+                    </button>
+
+                    <div className="flex items-center gap-1.5">
+                      {process.map((_, dotIdx) => (
+                        <button
+                          key={`dot-${dotIdx}`}
+                          type="button"
+                          onClick={() => setActiveStep(dotIdx)}
+                          className={cn(
+                            "h-2 rounded-full transition-all cursor-pointer",
+                            activeStep === dotIdx
+                              ? "w-5 bg-primary"
+                              : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60",
+                          )}
+                          aria-label={`Go to step ${dotIdx + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => setActiveStep((prev) => (prev + 1) % process.length)}
+                      className="flex items-center gap-1 rounded-xl border border-border bg-muted/60 px-2.5 py-1.5 text-xs font-semibold text-foreground transition-colors hover:bg-muted active:scale-95 cursor-pointer"
+                    >
+                      Next <ChevronRight className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </article>
+              </motion.div>
+            );
+          })()}
+        </AnimatePresence>
+      </div>
+
+      {/* ── Desktop: Full 4-Column Grid (hidden on mobile, visible on lg) ── */}
+      <div className="mt-8 hidden lg:grid lg:grid-cols-4 lg:gap-6">
         {process.map((p, i) => {
           const Icon = icons[i] ?? Rocket;
           const meta = stepMeta[i] ?? stepMeta[0]!;

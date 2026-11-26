@@ -71,8 +71,10 @@ export function BusinessValue() {
                 transition={{ type: "spring", stiffness: 420, damping: 32 }}
               />
             )}
-            <span className="relative z-10 flex items-center gap-1.5">
-              <Zap className="h-3.5 w-3.5" /> With Website (Growth Engine)
+            <span className="relative z-10 flex items-center gap-1.5 text-[0.72rem] sm:text-xs">
+              <Zap className="h-3.5 w-3.5 shrink-0" />
+              <span className="hidden sm:inline">With Website (Growth Engine)</span>
+              <span className="sm:hidden">With Website</span>
             </span>
           </button>
 
@@ -93,8 +95,10 @@ export function BusinessValue() {
                 transition={{ type: "spring", stiffness: 420, damping: 32 }}
               />
             )}
-            <span className="relative z-10 flex items-center gap-1.5">
-              <XCircle className="h-3.5 w-3.5" /> Without Website (Traditional)
+            <span className="relative z-10 flex items-center gap-1.5 text-[0.72rem] sm:text-xs">
+              <XCircle className="h-3.5 w-3.5 shrink-0" />
+              <span className="hidden sm:inline">Without Website (Traditional)</span>
+              <span className="sm:hidden">Without Website</span>
             </span>
           </button>
         </div>
@@ -228,37 +232,37 @@ export function BusinessValue() {
                       Live Business Impact Overview
                     </span>
 
-                    <div className="space-y-3">
-                      <div className="rounded-xl border border-border/70 bg-card p-3.5 flex items-center justify-between">
-                        <div className="flex items-center gap-2.5">
-                          <Clock className="h-4 w-4 text-primary" />
-                          <span className="text-xs font-semibold text-foreground">Operational Hours</span>
+                    <div className="grid grid-cols-2 gap-2 sm:grid-cols-1 sm:gap-3">
+                      <div className="rounded-xl border border-border/70 bg-card p-2.5 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <div className="flex items-center gap-1.5 sm:gap-2.5">
+                          <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0" />
+                          <span className="text-[0.7rem] sm:text-xs font-semibold text-foreground">Operational</span>
                         </div>
-                        <span className="text-xs font-bold text-emerald-500 font-mono">24/7/365 Non-Stop</span>
+                        <span className="text-[0.72rem] sm:text-xs font-bold text-emerald-500 font-mono">24/7/365</span>
                       </div>
 
-                      <div className="rounded-xl border border-border/70 bg-card p-3.5 flex items-center justify-between">
-                        <div className="flex items-center gap-2.5">
-                          <TrendingUp className="h-4 w-4 text-primary" />
-                          <span className="text-xs font-semibold text-foreground">Lead Generation</span>
+                      <div className="rounded-xl border border-border/70 bg-card p-2.5 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <div className="flex items-center gap-1.5 sm:gap-2.5">
+                          <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0" />
+                          <span className="text-[0.7rem] sm:text-xs font-semibold text-foreground">Lead Volume</span>
                         </div>
-                        <span className="text-xs font-bold text-primary font-mono">+300% Higher</span>
+                        <span className="text-[0.72rem] sm:text-xs font-bold text-primary font-mono">+300%</span>
                       </div>
 
-                      <div className="rounded-xl border border-border/70 bg-card p-3.5 flex items-center justify-between">
-                        <div className="flex items-center gap-2.5">
-                          <Globe className="h-4 w-4 text-primary" />
-                          <span className="text-xs font-semibold text-foreground">Customer Reach</span>
+                      <div className="rounded-xl border border-border/70 bg-card p-2.5 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <div className="flex items-center gap-1.5 sm:gap-2.5">
+                          <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0" />
+                          <span className="text-[0.7rem] sm:text-xs font-semibold text-foreground">Reach</span>
                         </div>
-                        <span className="text-xs font-bold text-highlight font-mono">Island-Wide &amp; Global</span>
+                        <span className="text-[0.72rem] sm:text-xs font-bold text-highlight font-mono">Island-Wide</span>
                       </div>
 
-                      <div className="rounded-xl border border-border/70 bg-card p-3.5 flex items-center justify-between">
-                        <div className="flex items-center gap-2.5">
-                          <CheckCircle2 className="h-4 w-4 text-primary" />
-                          <span className="text-xs font-semibold text-foreground">Inquiry Delivery</span>
+                      <div className="rounded-xl border border-border/70 bg-card p-2.5 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                        <div className="flex items-center gap-1.5 sm:gap-2.5">
+                          <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary shrink-0" />
+                          <span className="text-[0.7rem] sm:text-xs font-semibold text-foreground">Delivery</span>
                         </div>
-                        <span className="text-xs font-bold text-emerald-500 font-mono">Direct to WhatsApp</span>
+                        <span className="text-[0.72rem] sm:text-xs font-bold text-emerald-500 font-mono">WhatsApp</span>
                       </div>
                     </div>
                   </div>
@@ -301,25 +305,25 @@ export function BusinessValue() {
       </Reveal>
 
       {/* ── 4 Quick Visual Impact Cards (Minimal Text, Big Visual Punch) ── */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10 sm:mb-12">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-10 sm:mb-12">
         {visualMetrics.map((m, i) => {
           const Icon = m.icon;
           return (
             <Reveal key={m.id} from={i % 2 === 0 ? "left" : "right"} delay={(i % 4) * 0.06}>
-              <div className="group rounded-3xl border border-border bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-elegant h-full flex flex-col justify-between">
-                <div className="flex items-center justify-between gap-3 mb-3">
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Icon className="h-5 w-5" />
+              <div className="group rounded-2xl sm:rounded-3xl border border-border bg-card p-3 sm:p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-elegant h-full flex flex-col justify-between">
+                <div className="flex items-center justify-between gap-2 mb-2 sm:mb-3">
+                  <span className="grid h-8 w-8 sm:h-11 sm:w-11 place-items-center rounded-xl sm:rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-105 group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </span>
-                  <span className="rounded-full bg-muted/60 px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-muted-foreground">
+                  <span className="rounded-full bg-muted/60 px-2 py-0.5 text-[0.6rem] sm:text-[0.65rem] font-bold uppercase tracking-wider text-muted-foreground truncate max-w-[85px] sm:max-w-none">
                     {m.label}
                   </span>
                 </div>
                 <div>
-                  <span className="font-display text-2xl sm:text-3xl text-primary font-black tracking-tight block">
+                  <span className="font-display text-xl sm:text-3xl text-primary font-black tracking-tight block">
                     {m.stat}
                   </span>
-                  <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+                  <p className="text-[0.7rem] sm:text-xs text-muted-foreground mt-1 sm:mt-1.5 leading-relaxed line-clamp-2 sm:line-clamp-none">
                     {m.description}
                   </p>
                 </div>
