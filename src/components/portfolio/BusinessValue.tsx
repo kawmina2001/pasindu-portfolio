@@ -332,43 +332,6 @@ export function BusinessValue() {
           );
         })}
       </div>
-
-      {/* ── Bottom Call To Action ── */}
-      <Reveal from="up" delay={0.08}>
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-5 rounded-3xl border border-primary/20 bg-primary/5 p-6 sm:p-8 text-center sm:text-left">
-          <div className="flex items-center gap-4">
-            <img
-              src={devlogicLogo}
-              alt="DevLogic Labs logo"
-              className="h-12 w-12 rounded-xl border border-primary/30 object-cover shadow-xs shrink-0 hidden sm:block"
-            />
-            <div>
-              <h4 className="font-display text-lg uppercase text-foreground sm:text-xl">
-                Ready to turn your business into a 24/7 digital growth engine?
-              </h4>
-              <p className="text-xs text-muted-foreground mt-1 max-w-xl">
-                Let DevLogic Labs design and engineer a custom digital platform that captures leads, automates operations, and scales your sales.
-              </p>
-            </div>
-          </div>
-          <div className="shrink-0 flex flex-wrap gap-2.5 justify-center">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 rounded-full bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:scale-105"
-            >
-              Start Your Project <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href={agencyWhatsappLink("Hi DevLogic Labs, I saw your digital growth engine simulation and would like to build a website for my business.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-foreground transition-all hover:border-primary/60 hover:text-primary"
-            >
-              <WhatsappIcon className="h-4 w-4" /> Free WhatsApp Consultation
-            </a>
-          </div>
-        </div>
-      </Reveal>
     </section>
   );
 }

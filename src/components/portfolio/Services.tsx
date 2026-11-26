@@ -286,34 +286,6 @@ export function Services() {
           )}
         </DialogContent>
       </Dialog>
-
-      {/* ── Footer CTA ── */}
-      <Reveal from="up" delay={0.1} className="mt-10 sm:mt-14">
-        <div className="flex flex-col items-center gap-4 rounded-3xl border border-primary/20 bg-primary/5 py-8 px-5 text-center sm:py-10">
-          <p className="text-[0.72rem] font-bold uppercase tracking-widest text-primary sm:text-xs">
-            Not sure which service fits your project?
-          </p>
-          <h4 className="font-display text-2xl uppercase leading-tight text-foreground sm:text-3xl">
-            Let's find the right solution together
-          </h4>
-          <div className="flex flex-wrap justify-center gap-3">
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:scale-105"
-            >
-              Start a Conversation <ArrowUpRight className="h-4 w-4" />
-            </a>
-            <a
-              href={agencyWhatsappLink("Hi DevLogic Labs, I need help choosing the right service for my project.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-primary transition-all hover:bg-primary/10 hover:border-primary/70"
-            >
-              WhatsApp DevLogic Labs
-            </a>
-          </div>
-        </div>
-      </Reveal>
     </section>
   );
 }

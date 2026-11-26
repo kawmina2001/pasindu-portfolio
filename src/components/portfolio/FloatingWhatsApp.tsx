@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { agency, agencyWhatsappLink } from "@/data/personal";
 import { WhatsappIcon } from "./icons";
 
-const floatVariants = {
-  floating: {
-    y: [0, -7, 0],
+const bobbingVariants = {
+  bobbing: {
+    y: [0, -6, 0],
     transition: {
       duration: 3.2,
       repeat: Infinity,
@@ -22,6 +22,48 @@ export function FloatingWhatsApp() {
   const [showTooltip, setShowTooltip] = useState(true);
   const reduce = useReducedMotion();
 
+  // Scroll dynamics: move up when scrolling up, move down when scrolling down
+  const [scrollDeltaY, setScrollDeltaY] = useState(0);
+  const lastScrollY = useRef(0);
+  const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (reduce) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const diff = currentScrollY - lastScrollY.current;
+
+      if (Math.abs(diff) > 2) {
+        if (diff > 0) {
+          // Scrolling DOWN -> shift downwards (+14px)
+          setScrollDeltaY(14);
+        } else {
+          // Scrolling UP -> shift upwards (-14px)
+          setScrollDeltaY(-14);
+        }
+
+        // Return smoothly to 0 after scrolling pauses
+        if (timeoutRef.current !== null) {
+          window.clearTimeout(timeoutRef.current);
+        }
+        timeoutRef.current = window.setTimeout(() => {
+          setScrollDeltaY(0);
+        }, 320);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [reduce]);
+
   const href = agencyWhatsappLink(
     "Hi DevLogic Labs, I'm visiting your website and would like to discuss a project.",
   );
@@ -31,12 +73,23 @@ export function FloatingWhatsApp() {
       aria-label="Direct WhatsApp Contact"
       className="fixed bottom-24 right-4 z-40 sm:bottom-8 sm:right-8"
     >
-      {/* ── Floating Animation Container (walakulaka pawi pawi innawa) ── */}
+      {/* ── Scroll Dynamic Container: responds to scroll direction ── */}
       <motion.div
-        variants={floatVariants}
-        animate={reduce ? "still" : "floating"}
+        animate={{ y: scrollDeltaY }}
+        transition={{
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+          mass: 0.8,
+        }}
         className="relative flex flex-col items-end"
       >
+        {/* ── Gentle Floating Bobbing Container (walakulaka pawi pawi innawa) ── */}
+        <motion.div
+          variants={bobbingVariants}
+          animate={reduce ? "still" : "bobbing"}
+          className="relative flex flex-col items-end"
+        >
         {/* ── Interactive Speech Bubble Tooltip ── */}
         <AnimatePresence>
           {showTooltip && (
@@ -127,6 +180,7 @@ export function FloatingWhatsApp() {
             </span>
           </div>
         </a>
+        </motion.div>
       </motion.div>
     </aside>
   );

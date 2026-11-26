@@ -112,14 +112,6 @@ export function Testimonials() {
                     </h3>
                   </div>
                 </div>
-                <a
-                  href={agencyWhatsappLink("Hi DevLogic Labs, I'd like to request project references and discuss a custom software solution.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-md transition-all hover:scale-105"
-                >
-                  Request Client References <ArrowUpRight className="h-4 w-4" />
-                </a>
               </div>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-6">
