@@ -49,6 +49,7 @@ const iconVariants = {
 export function Process() {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  const [activeStep, setActiveStep] = useState(0);
   const [isScrollingBack, setIsScrollingBack] = useState(false);
   const lastScrollY = useRef(0);
 
@@ -58,8 +59,12 @@ export function Process() {
     offset: ["start 80%", "end 45%"],
   });
 
-  // Track scroll direction: down (1 -> 4) vs up (4 -> 1)
+  // Track scroll direction & active step as user scrolls
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Determine active step based on scroll position (0 to 3)
+    const stepIndex = Math.min(Math.floor(latest * process.length), process.length - 1);
+    setActiveStep(Math.max(0, stepIndex));
+
     if (latest < lastScrollY.current - 0.003) {
       setIsScrollingBack(true);
     } else if (latest > lastScrollY.current + 0.003) {
@@ -124,15 +129,34 @@ export function Process() {
             </motion.div>
           )}
 
-          {/* 4 Step Milestone Node Markers */}
+          {/* 4 Step Milestone Node Markers with downward light beam */}
           <div className="relative h-6 flex justify-between px-[12.5%]">
-            {process.map((p) => (
-              <div key={`dot-${p.step}`} className="relative flex flex-col items-center">
-                <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-background bg-card shadow-xs transition-transform duration-300 hover:scale-125">
-                  <span className="h-2 w-2 rounded-full bg-primary" />
+            {process.map((p, idx) => {
+              const isCurrent = activeStep === idx;
+              return (
+                <div key={`dot-${p.step}`} className="relative flex flex-col items-center">
+                  <div
+                    className={cn(
+                      "flex h-5 w-5 items-center justify-center rounded-full border-2 bg-card shadow-xs transition-all duration-300",
+                      isCurrent
+                        ? "border-primary scale-125 shadow-[0_0_12px_var(--color-primary)]"
+                        : "border-background hover:scale-110",
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "h-2 w-2 rounded-full transition-colors duration-300",
+                        isCurrent ? "bg-highlight" : "bg-primary",
+                      )}
+                    />
+                  </div>
+                  {/* Subtle drop light beam pointing down towards the card */}
+                  {isCurrent && (
+                    <div className="absolute top-5 h-4 w-px bg-gradient-to-b from-primary via-primary/60 to-transparent shadow-[0_0_8px_var(--color-primary)] animate-pulse" />
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -151,8 +175,24 @@ export function Process() {
                 variants={cardVariants}
                 className={cn("h-full", i % 2 === 1 ? "lg:mt-10" : "")}
               >
-                <article className="group relative h-full overflow-hidden rounded-3xl border border-border bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-2 hover:border-primary hover:shadow-[0_14px_32px_-10px_rgba(255,107,0,0.22)] sm:p-6">
-                  {/* Top glowing beam line that animates across the card on scroll */}
+                <article
+                  className={cn(
+                    "group relative h-full overflow-hidden rounded-3xl border bg-card p-5 transition-all duration-300 sm:p-6",
+                    activeStep === i
+                      ? "border-primary/80 shadow-[0_20px_40px_-10px_rgba(255,107,0,0.32)] -translate-y-2 ring-1 ring-primary/25"
+                      : "border-border shadow-soft hover:-translate-y-2 hover:border-primary hover:shadow-[0_14px_32px_-10px_rgba(255,107,0,0.22)]",
+                  )}
+                >
+                  {/* Top glowing ambient shadow falling from above into the card while scrolling */}
+                  <div
+                    aria-hidden
+                    className={cn(
+                      "pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary/25 via-primary/5 to-transparent transition-opacity duration-300",
+                      activeStep === i ? "opacity-100" : "opacity-30 group-hover:opacity-75",
+                    )}
+                  />
+
+                  {/* Top glowing beam line that casts downward shadow */}
                   {!reduce && (
                     <motion.div
                       aria-hidden
@@ -160,7 +200,7 @@ export function Process() {
                       whileInView={{ scaleX: 1 }}
                       viewport={{ once: false }}
                       transition={{ duration: 0.65, delay: i * 0.12 + 0.15, ease: "easeOut" }}
-                      className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent"
+                      className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_4px_16px_rgba(255,107,0,0.9)]"
                     />
                   )}
 
