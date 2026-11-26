@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import { ArrowUpRight, Mail, MapPin, Phone, Send } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone, Send, ShieldCheck } from "lucide-react";
 import devlogicLogo from "@/assets/devlogic-logo.png";
 import { agency, agencyWhatsappLink, personal, whatsappLink } from "@/data/personal";
 import { services } from "@/data/services";
@@ -52,7 +52,14 @@ export function Contact() {
     formState: { errors, isSubmitting },
   } = useForm<ContactValues>({ resolver: zodResolver(contactSchema), defaultValues: { projectType: "" } });
 
-  const onSubmit = (values: ContactValues) => {
+  const onSubmit = (values: ContactValues, e?: React.BaseSyntheticEvent) => {
+    // Anti-bot honeypot check: drop silently if automated scraper filled hidden token
+    const honeypot = (e?.target as HTMLFormElement)?.querySelector<HTMLInputElement>('input[name="bot_honey_token"]')?.value;
+    if (honeypot) {
+      console.warn("Automated bot submission rejected.");
+      return;
+    }
+
     const waUrl = buildAgencyWhatsAppUrl(values);
     window.open(waUrl, "_blank");
     toast.success("Opening WhatsApp...", {
@@ -229,6 +236,20 @@ export function Contact() {
               <Textarea id="message" rows={6} placeholder="Tell me about your project…" className="rounded-xl" aria-invalid={!!errors.message} {...register("message")} />
               {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
             </div>
+            {/* Hidden honeypot field for anti-bot & anti-scraper protection */}
+            <div aria-hidden className="hidden pointer-events-none opacity-0 select-none -z-50 absolute">
+              <label htmlFor="bot_honey_token">Leave blank</label>
+              <input id="bot_honey_token" name="bot_honey_token" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
+
+            {/* Direct Channel Security Verification Badge */}
+            <div className="sm:col-span-2 flex items-center gap-2 rounded-xl border border-primary/25 bg-primary/5 px-3.5 py-2.5 text-[0.75rem] text-muted-foreground">
+              <ShieldCheck className="h-4 w-4 shrink-0 text-primary" />
+              <span>
+                <strong className="text-foreground">Official Direct Channel:</strong> Inquiries are transmitted directly to DevLogic Labs (<span className="font-semibold text-primary">{agency.phoneDisplay}</span> &amp; <span className="font-semibold text-primary">{agency.email}</span>). No third-party data broker.
+              </span>
+            </div>
+
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:col-span-2 pt-2">
               <p className="text-xs text-muted-foreground">
                 Inquiries are sent directly to DevLogic Labs Business WhatsApp (<span className="font-semibold text-foreground">{agency.phoneDisplay}</span>).

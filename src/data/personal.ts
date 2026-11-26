@@ -1,5 +1,6 @@
 // Edit your personal details here — every section reads from this file.
-export const personal = {
+// Frozen at runtime to guarantee tamper-proof immutability.
+export const personal = Object.freeze({
   fullName: "Pasindu Kawmina Wickramarathna",
   shortName: "Pasindu Kawmina",
   firstName: "Pasindu",
@@ -38,9 +39,9 @@ export const personal = {
     "Learning modern frameworks and technologies.",
     "Developing innovative and user-friendly software solutions.",
   ],
-};
+});
 
-export const agency = {
+export const agency = Object.freeze({
   name: "DevLogic Labs",
   tagline: "Build Smart. Think Beyond.",
   category: "Custom Digital Solutions & Technology Agency",
@@ -50,7 +51,7 @@ export const agency = {
   email: "devlogiclabs.mail@gmail.com",
   description:
     "Custom Digital Solutions & Technology Agency delivering bespoke web applications, enterprise business systems, and AI-driven innovations.",
-};
+});
 
 export const education = {
   university: "University of Vavuniya, Sri Lanka",
