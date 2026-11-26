@@ -129,7 +129,7 @@ export function Process() {
             </motion.div>
           )}
 
-          {/* 4 Step Milestone Node Markers with downward light beam */}
+          {/* 4 Step Milestone Node Markers */}
           <div className="relative h-6 flex justify-between px-[12.5%]">
             {process.map((p, idx) => {
               const isCurrent = activeStep === idx;
@@ -150,10 +150,6 @@ export function Process() {
                       )}
                     />
                   </div>
-                  {/* Subtle drop light beam pointing down towards the card */}
-                  {isCurrent && (
-                    <div className="absolute top-5 h-4 w-px bg-gradient-to-b from-primary via-primary/60 to-transparent shadow-[0_0_8px_var(--color-primary)] animate-pulse" />
-                  )}
                 </div>
               );
             })}
@@ -191,18 +187,6 @@ export function Process() {
                       activeStep === i ? "opacity-100" : "opacity-30 group-hover:opacity-75",
                     )}
                   />
-
-                  {/* Top glowing beam line that casts downward shadow */}
-                  {!reduce && (
-                    <motion.div
-                      aria-hidden
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: false }}
-                      transition={{ duration: 0.65, delay: i * 0.12 + 0.15, ease: "easeOut" }}
-                      className="absolute inset-x-0 top-0 h-[2.5px] bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_4px_16px_rgba(255,107,0,0.9)]"
-                    />
-                  )}
 
                   {/* Corner ambient radial glow */}
                   <div
