@@ -102,31 +102,25 @@ export function Process() {
             </div>
           )}
 
-          {/* 🚀 Traveling Rocket Emoji riding on the neon beam */}
+          {/* ── Traveling Horizontal Rocket Icon along the neon beam ── */}
           {!reduce && (
             <motion.div
               style={{ left: rocketX }}
-              className="pointer-events-none absolute top-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
+              className="pointer-events-none absolute top-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center"
             >
-              <motion.div
-                animate={{
-                  scaleX: isScrollingBack ? -1 : 1,
-                }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="relative flex items-center justify-center filter drop-shadow-[0_0_12px_rgba(255,107,0,0.9)]"
+              <div
+                className={cn(
+                  "relative flex items-center justify-center rounded-full bg-card border-2 border-primary/70 p-2 shadow-[0_0_16px_rgba(255,107,0,0.85)] transition-transform duration-200",
+                  isScrollingBack ? "-scale-x-100" : "scale-x-100",
+                )}
               >
-                {/* Glowing thruster exhaust flame */}
-                <span
-                  className={cn(
-                    "absolute top-1/2 -translate-y-1/2 h-2.5 w-5 rounded-full bg-gradient-to-r from-transparent via-highlight to-primary blur-[1.5px] opacity-95",
-                    isScrollingBack ? "-right-3.5 rotate-180" : "-left-3.5",
-                  )}
-                />
-                {/* Rocket Emoji */}
-                <span className="text-xl sm:text-2xl select-none leading-none inline-block">
-                  🚀
-                </span>
-              </motion.div>
+                {/* Glowing neon rocket thruster exhaust flame */}
+                <span className="absolute -left-3.5 top-1/2 -translate-y-1/2 h-2.5 w-4 rounded-l-full bg-gradient-to-l from-highlight via-primary to-transparent blur-[1px] animate-pulse" />
+                <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 h-1 w-2 rounded-l-full bg-white blur-[0.5px]" />
+
+                {/* 100% Perfectly Horizontal Rocket Icon (nose points straight forward along beam) */}
+                <Rocket className="h-4 w-4 text-primary rotate-45 transform-gpu" />
+              </div>
             </motion.div>
           )}
 
