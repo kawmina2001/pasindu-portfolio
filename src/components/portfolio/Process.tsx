@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useMotionValueEvent } from "framer-motion";
 import {
   Code2,
   MessagesSquare,
@@ -203,23 +203,42 @@ function ProcessVisualGraphic({ stepIndex }: { stepIndex: number }) {
 }
 
 export function Process() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [activeStep, setActiveStep] = useState(0);
 
-  // Auto-cycle through the stages every 4.5 seconds when idle
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % process.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, []);
+  // Scroll tracking: updates active step dynamically as user scrolls up or down through the section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 70%", "end 30%"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Map scroll progress (0 to 1) into 4 step slices
+    const stepIndex = Math.min(Math.floor(latest * process.length), process.length - 1);
+    const clampedStep = Math.max(0, stepIndex);
+    setActiveStep(clampedStep);
+  });
 
   return (
-    <section id="process" className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-24 lg:py-28">
+    <section id="process" ref={sectionRef} className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-24 lg:py-28">
       <SectionHeading
         eyebrow="How I work"
         title="My Work Process"
         description="A transparent, four-phase engineering approach built for speed, clean architecture, and zero downtime."
       />
+
+      {/* ── Scroll-Driven Milestone Progress Tracker ── */}
+      <Reveal from="up" className="mt-4 flex flex-col items-center gap-1.5">
+        <div className="h-1.5 w-48 sm:w-64 rounded-full bg-border/60 overflow-hidden">
+          <motion.div
+            style={{ scaleX: scrollYProgress, originX: 0 }}
+            className="h-full bg-gradient-to-r from-primary via-highlight to-primary shadow-[0_0_10px_var(--color-primary)]"
+          />
+        </div>
+        <span className="text-[0.65rem] font-mono text-muted-foreground uppercase tracking-widest">
+          Scroll-Driven: Phase {activeStep + 1} of {process.length} ({process[activeStep]?.title})
+        </span>
+      </Reveal>
 
       {/* ── Interactive Stage Switcher Bar ── */}
       <Reveal from="up" className="mt-6 sm:mt-8 flex justify-center">
