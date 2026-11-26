@@ -8,6 +8,7 @@ import {
   Home,
   Layers,
   Mail,
+  TrendingUp,
   UserRound,
   type LucideIcon,
 } from "lucide-react";
@@ -19,6 +20,7 @@ const icons: Record<string, LucideIcon> = {
   home: Home,
   about: UserRound,
   services: Layers,
+  "why-website": TrendingUp,
   skills: Code2,
   projects: FolderKanban,
   experience: BriefcaseBusiness,
