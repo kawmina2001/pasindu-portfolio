@@ -1,5 +1,12 @@
-import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
+import { useState, useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useMotionValueEvent,
+} from "framer-motion";
 import { ArrowRight, Code2, MessagesSquare, PenTool, Rocket, type LucideIcon } from "lucide-react";
 import { process } from "@/data/personal";
 import { cn } from "@/lib/utils";
@@ -42,11 +49,23 @@ const iconVariants = {
 export function Process() {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  const [isScrollingBack, setIsScrollingBack] = useState(false);
+  const lastScrollY = useRef(0);
 
   // Scroll tracking across the 4-step process section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 80%", "end 45%"],
+  });
+
+  // Track scroll direction: down (1 -> 4) vs up (4 -> 1)
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest < lastScrollY.current - 0.003) {
+      setIsScrollingBack(true);
+    } else if (latest > lastScrollY.current + 0.003) {
+      setIsScrollingBack(false);
+    }
+    lastScrollY.current = latest;
   });
 
   // Smooth physics spring response for up & down scrolling
@@ -55,6 +74,9 @@ export function Process() {
     damping: 30,
     restDelta: 0.001,
   });
+
+  // Rocket emoji position traveling from Step 1 (12.5%) to Step 4 (87.5%)
+  const rocketX = useTransform(scaleX, (v) => `${12.5 + Math.min(Math.max(v * 75, 0), 75)}%`);
 
   return (
     <section id="process" className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-24 lg:py-28">
@@ -65,8 +87,8 @@ export function Process() {
       />
 
       <div ref={containerRef} className="relative mt-8 sm:mt-12">
-        {/* ── Scroll-Driven Connecting Flow Beam (Visible on desktop across the 4 steps) ── */}
-        <div aria-hidden className="relative mb-6 hidden lg:block">
+        {/* ── Scroll-Driven Connecting Flow Beam with Traveling Rocket 🚀 ── */}
+        <div aria-hidden className="relative mb-8 block">
           {/* Static background guide track */}
           <div className="absolute left-[12.5%] right-[12.5%] top-1/2 -translate-y-1/2 h-1 bg-border/60 rounded-full" />
 
@@ -75,9 +97,37 @@ export function Process() {
             <div className="absolute left-[12.5%] right-[12.5%] top-1/2 -translate-y-1/2 h-1 overflow-visible">
               <motion.div
                 style={{ scaleX, originX: 0 }}
-                className="h-full w-full rounded-full bg-gradient-to-r from-primary via-highlight to-primary shadow-[0_0_14px_rgba(255,107,0,0.8)]"
+                className="h-full w-full rounded-full bg-gradient-to-r from-primary via-highlight to-primary shadow-[0_0_16px_rgba(255,107,0,0.85)]"
               />
             </div>
+          )}
+
+          {/* 🚀 Traveling Rocket Emoji riding on the neon beam */}
+          {!reduce && (
+            <motion.div
+              style={{ left: rocketX }}
+              className="pointer-events-none absolute top-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
+            >
+              <motion.div
+                animate={{
+                  scaleX: isScrollingBack ? -1 : 1,
+                }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="relative flex items-center justify-center filter drop-shadow-[0_0_12px_rgba(255,107,0,0.9)]"
+              >
+                {/* Glowing thruster exhaust flame */}
+                <span
+                  className={cn(
+                    "absolute top-1/2 -translate-y-1/2 h-2.5 w-5 rounded-full bg-gradient-to-r from-transparent via-highlight to-primary blur-[1.5px] opacity-95",
+                    isScrollingBack ? "-right-3.5 rotate-180" : "-left-3.5",
+                  )}
+                />
+                {/* Rocket Emoji */}
+                <span className="text-xl sm:text-2xl select-none leading-none inline-block">
+                  🚀
+                </span>
+              </motion.div>
+            </motion.div>
           )}
 
           {/* 4 Step Milestone Node Markers */}
