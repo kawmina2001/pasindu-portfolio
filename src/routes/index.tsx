@@ -15,7 +15,6 @@ import { Testimonials } from "@/components/portfolio/Testimonials";
 import { Contact } from "@/components/portfolio/Contact";
 import { Footer } from "@/components/portfolio/Footer";
 import { SectionDock } from "@/components/portfolio/SectionDock";
-import { FloatingWhatsApp } from "@/components/portfolio/FloatingWhatsApp";
 
 const title = "Pasindu Kawmina Wickramarathna | Full-Stack Developer & AI/ML Enthusiast";
 const description =
@@ -57,7 +56,6 @@ function Index() {
       </main>
       <Footer />
       <SectionDock />
-      <FloatingWhatsApp />
       <div aria-hidden className="h-20 lg:hidden" />
     </MotionConfig>
   );
